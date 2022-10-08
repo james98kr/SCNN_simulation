@@ -1,4 +1,3 @@
-// I have to define tensor data type in datatypes.h!!
 #include "../../include/scnn/mult_array.h"
 
 namespace SCNN {
