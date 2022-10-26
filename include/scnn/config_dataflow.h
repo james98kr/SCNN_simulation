@@ -32,8 +32,8 @@ public:
     unsigned get_S();
     unsigned get_PE_Num_W();
     unsigned get_PE_Num_H();
-    unsigned get_Tile_W();
-    unsigned get_Tile_H();
+    vector<int> get_Vec_Tile_W();
+    vector<int> get_Vec_Tile_H();
 
     // Set
     void set_N(unsigned _N);
@@ -46,6 +46,7 @@ public:
     void set_S(unsigned _S);
     void set_PE_Num_W(unsigned _PE_Num_W);
     void set_PE_Num_H(unsigned _PE_Num_H);
+    void reset_vec_tile();
 
 private:
     unsigned N;     // Batch size
@@ -58,6 +59,8 @@ private:
     unsigned S;     // OA height
     unsigned PE_Num_W;  // Number of PE in horizontal axis
     unsigned PE_Num_H;  // Number of PE in vertical axis
+    vector<int> Vec_Tile_W;
+    vector<int> Vec_Tile_H;
 };
 
 }

@@ -48,4 +48,4 @@ bool IO_element::get_valid() { return valid; }
 Fmap_t IO_element::get_data() { return data; }
 tensor_4D_idx IO_element::get_idx() { return idx; }
 
-} // Namespace SCNN
+}

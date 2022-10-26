@@ -12,10 +12,8 @@ ConfigArch::ConfigArch(
     unsigned _xbar_out,
     
     // SRAM size
-    unsigned _iaram_sparse_len,
-    unsigned _iaram_idx_len,
-    unsigned _oaram_sparse_len,
-    unsigned _oaram_idx_len,
+    unsigned _ioram_sparse_len,
+    unsigned _ioram_idx_len,
     unsigned _weight_sparse_len,
     unsigned _weight_idx_len,
 
@@ -29,10 +27,8 @@ ConfigArch::ConfigArch(
     xbar_in = _xbar_in;
     xbar_out = _xbar_out;
 
-    iaram_sparse_len = _iaram_sparse_len;
-    iaram_idx_len = _iaram_idx_len;
-    oaram_sparse_len = _oaram_sparse_len;
-    oaram_idx_len = _oaram_idx_len;
+    ioram_sparse_len = _ioram_sparse_len;
+    ioram_idx_len = _ioram_idx_len;
 
     weight_sparse_len = _weight_sparse_len;
     weight_idx_len = _weight_idx_len;
@@ -42,10 +38,8 @@ unsigned ConfigArch::get_mult_arr_F() { return mult_arr_F; }
 unsigned ConfigArch::get_mult_arr_I() { return mult_arr_I; }
 unsigned ConfigArch::get_xbar_in() { return xbar_in; }
 unsigned ConfigArch::get_xbar_out() { return xbar_out; }
-unsigned ConfigArch::get_iaram_sparse_len() { return iaram_sparse_len; }
-unsigned ConfigArch::get_iaram_idx_len() { return iaram_idx_len; }
-unsigned ConfigArch::get_oaram_sparse_len() { return oaram_sparse_len; }
-unsigned ConfigArch::get_oaram_idx_len() { return oaram_idx_len; }
+unsigned ConfigArch::get_ioram_sparse_len() { return ioram_sparse_len; }
+unsigned ConfigArch::get_ioram_idx_len() { return ioram_idx_len; }
 unsigned ConfigArch::get_weight_sparse_len() { return weight_sparse_len; }
 unsigned ConfigArch::get_weight_idx_len() { return weight_idx_len; }
 unsigned ConfigArch::get_acc_bank_num() { return acc_bank_num; }

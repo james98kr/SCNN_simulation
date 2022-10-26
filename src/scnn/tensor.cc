@@ -283,6 +283,7 @@ void Tensor4D_W::compress_W_sparse(int Kc) {
                     }
                 }
             }
+            _w_indices[kprm][c].insert(_w_indices[kprm][c].begin(), _w_buffer[kprm][c].size());
         }
     }
     w_buffer = _w_buffer;

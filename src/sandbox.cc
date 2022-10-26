@@ -15,9 +15,9 @@ using namespace SCNN;
 int main() {
     int N = 1;
     int C = 3;
-    int H = 5;
-    int W = 5;
-    int K = 8;
+    int H = 4;
+    int W = 4;
+    int K = 4;
     int Kc = 2;
     int S = 3;
     int R = 3;
@@ -25,6 +25,7 @@ int main() {
     int PE_Num_H = 1;
     int I = 4;
     int F = 4;
+    int tile_num = 0;
 
     ConfigArch arch = ConfigArch(F,I,16,32,1000,1000,1000,1000,1000,1000);
     ConfigDataflow layer = ConfigDataflow(N,K,Kc,C,W,H,R,S,PE_Num_W,PE_Num_H);
@@ -57,7 +58,6 @@ int main() {
     w.compress_W_sparse(Kc);
     // W_buffer wbuffer = w.get_w_buffer();
     // W_indices windices = w.get_w_indices();
-
     // for (int i=0; i<wbuffer.size(); i++) {
     //     for (int j=0; j<wbuffer[i].size(); j++) {
     //         for (int k=0; k<wbuffer[i][j].size(); k++) {
@@ -76,39 +76,59 @@ int main() {
     //     }
     // }
 
-    SparseRAM sram = SparseRAM(iobuffer, ioindices, &arch, 0);
-    WeightFIFO wfifo = WeightFIFO
+    SparseRAM sram = SparseRAM(io.get_io_buffer(), io.get_io_indices(), &arch, 0);
+    WeightFIFO wfifo = WeightFIFO(w.get_w_buffer(), w.get_w_indices(), &arch, &layer);
+    MultArray multarray = MultArray(&arch, &layer);
 
+    IO_vec io_vec;
+    vector<int> io_idx;
+    W_vec w_vec;
+    vector<int> w_idx;
     IO_vec out;
-    vector<int> idx;
 
-    for (int j=0; j<10; j++) {
-        out = sram.send_input_activation_to_mult_array();
-        idx = sram.send_input_idx_to_mult_array();
-        for (int i=0; i<out.size(); i++) {
-            out[i].print();
-            cout << idx[i] << endl;
+    for (int n=0; n<N; n++) {
+        for (int kprm=0; kprm<K/Kc; kprm++) {
+            cout << "kprm: " << kprm << endl;
+            for (int c=0; c<C; c++) {
+                cout << "c: " << c << endl;
+                while (true) {
+                    io_vec = sram.send_input_activation_to_mult_array();
+                    io_idx = sram.send_input_idx_to_mult_array();
+                    multarray.load_input(io_vec, io_idx);
+                    if (io_vec.size() <= 0)
+                        break;
+
+                    while (true) {
+                        w_vec = wfifo.send_weight_activation_to_mult_array();
+                        w_idx = wfifo.send_weight_idx_to_mult_array();
+                        if (w_vec.size() <= 0)
+                            break;
+                        multarray.load_weight(w_vec, w_idx);
+
+                        out = multarray.cartesian_product(tile_num, sram.get_n_idx(), sram.get_c_idx(), wfifo.get_k_idx());
+                        for (int p=0; p<out.size(); p++) {
+                            out[p].print();
+                        }
+                        cout << " " << endl;
+
+                        wfifo.incr_i_idx();
+                    }
+
+                    wfifo.reset_i_idx();
+                    sram.incr_i_idx();
+                    multarray.reset_w_cnt();
+                }
+                sram.reset_i_idx();
+                sram.incr_c_idx();
+                wfifo.incr_c_idx();
+                multarray.reset_io_cnt();
+            }
+            sram.reset_c_idx();
+            wfifo.reset_c_idx();
+            wfifo.incr_k_idx();
         }
-        sram.incr_i_idx();
+        wfifo.reset_k_idx();
     }
-    sram.incr_c_idx();
-    sram.reset_i_idx();
-    cout << " " << endl;
-
-    for (int j=0; j<10; j++) {
-        out = sram.send_input_activation_to_mult_array();
-        idx = sram.send_input_idx_to_mult_array();
-        for (int i=0; i<out.size(); i++) {
-            out[i].print();
-            cout << idx[i] << endl;
-        }
-        sram.incr_i_idx();
-    }
-
-
-
-
-
     return 0;
 }
 

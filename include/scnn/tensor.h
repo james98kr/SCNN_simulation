@@ -1,7 +1,6 @@
 #ifndef SCNN_TENSOR_H_
 #define SCNN_TENSOR_H_
 
-#include "common.h"
 #include "datatypes.h"
 
 namespace SCNN {
@@ -80,4 +79,4 @@ private:
 
 }
 
-# endif
+#endif

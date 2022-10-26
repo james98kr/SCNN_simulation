@@ -13,4 +13,3 @@ SRC += $(wildcard $(SRC_DIR)/**/*.$(CPP_SUFFIX))
 
 all:
 	$(CC) $(CFLAGS) $(SRC) -o $(TOP_EXE)
-	./$(TOP_EXE)

@@ -18,10 +18,8 @@ public:
         unsigned _xbar_out,
         
         // SRAM size
-        unsigned _iaram_sparse_len,
-        unsigned _iaram_idx_len,
-        unsigned _oaram_sparse_len,
-        unsigned _oaram_idx_len,
+        unsigned _ioram_sparse_len,
+        unsigned _ioram_idx_len,
         unsigned _weight_sparse_len,
         unsigned _weight_idx_len,
 
@@ -36,10 +34,8 @@ public:
     unsigned get_xbar_in();
     unsigned get_xbar_out();
     
-    unsigned get_iaram_sparse_len();
-    unsigned get_iaram_idx_len();
-    unsigned get_oaram_sparse_len();
-    unsigned get_oaram_idx_len();
+    unsigned get_ioram_sparse_len();
+    unsigned get_ioram_idx_len();
     unsigned get_weight_sparse_len();
     unsigned get_weight_idx_len();
 
@@ -56,10 +52,8 @@ private:
     unsigned xbar_out;
     
     // SRAM size
-    unsigned iaram_sparse_len;
-    unsigned iaram_idx_len;
-    unsigned oaram_sparse_len;
-    unsigned oaram_idx_len;
+    unsigned ioram_sparse_len;
+    unsigned ioram_idx_len;
     unsigned weight_sparse_len;
     unsigned weight_idx_len;
 
