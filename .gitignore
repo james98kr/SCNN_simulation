@@ -1,5 +1,5 @@
 .vscode
-.DS_Store
+**/.DS_Store
 test.cc
 test
 scnn
