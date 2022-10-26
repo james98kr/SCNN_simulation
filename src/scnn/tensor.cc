@@ -135,6 +135,64 @@ void Tensor4D_IO::compress_IO_sparse() {
     return;
 }
 
+void Tensor4D_IO::compress_IO_sparse_tile(ConfigDataflow* cfg_layer, int tile_num) {
+    IO_buffer _io_buffer;
+    IO_indices _io_indices;
+    int cnt = 0;
+
+    int tile_h, tile_w;
+    int start_h = 0;
+    int end_h = 0;
+    int start_w = 0;
+    int end_w = 0;
+    vector<int> vec_tile_w = cfg_layer->get_Vec_Tile_W();
+    vector<int> vec_tile_h = cfg_layer->get_Vec_Tile_H();
+    tile_h = tile_num / vec_tile_w.size();
+    tile_w = tile_num % vec_tile_w.size();
+    for (int a=0; a<tile_h; a++) {
+        start_h += vec_tile_h[a];
+    }
+    end_h = start_h + vec_tile_h[tile_h];
+    for (int b=0; b<tile_w; b++) {
+        start_w += vec_tile_w[b];
+    }
+    end_w = start_w + vec_tile_w[tile_w];
+
+    for (int n=0; n<N; n++) {
+        vector<IO_vec> new_elem;
+        vector<vector<int>> new_idx;
+        _io_buffer.push_back(new_elem);
+        _io_indices.push_back(new_idx);
+        for (int c=0; c<C; c++) {
+            IO_vec new_elem;
+            vector<int> new_idx;
+            _io_buffer[n].push_back(new_elem);
+            _io_indices[n].push_back(new_idx);
+            cnt = 0;
+            for (int h=start_h; h<end_h; h++) {
+                for (int w=start_w; w<end_w; w++) {
+                    if (data[n][c][h][w] != 0) {
+                        bool valid = true;
+                        Fmap_t val = data[n][c][h][w];
+                        tensor_4D_idx idx = make_tuple(n, c, h, w);
+                        IO_element new_elem(valid, val, idx);
+                        _io_buffer[n][c].push_back(new_elem);
+                        _io_indices[n][c].push_back(cnt);
+                        cnt = 0;
+                    }
+                    else {
+                        cnt++;
+                    }
+                }
+            }
+            _io_indices[n][c].insert(_io_indices[n][c].begin(), _io_buffer[n][c].size());
+        }
+    }
+    io_buffer = _io_buffer;
+    io_indices = _io_indices;
+    return;
+}
+
 int Tensor4D_IO::get_N() { return N; }
 int Tensor4D_IO::get_C() { return C; }
 int Tensor4D_IO::get_H() { return H; }

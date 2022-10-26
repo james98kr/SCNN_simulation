@@ -10,9 +10,7 @@ namespace SCNN {
 class WeightFIFO {
 
 public:
-    WeightFIFO(W_buffer _w_buffer,
-               W_indices _w_indices,
-               ConfigArch* _cfg_arch,
+    WeightFIFO(ConfigArch* _cfg_arch,
                ConfigDataflow* _cfg_layer);
     void set_w_buffer(W_buffer _w_buffer);
     void set_w_indices(W_indices _w_indices);
@@ -20,7 +18,6 @@ public:
     int get_k_idx();
     int get_c_idx();
     int get_i_idx();
-    int get_finished();
     ConfigArch* get_cfg_arch();
     ConfigDataflow* get_cfg_layer();
 
@@ -30,7 +27,7 @@ public:
     void reset_k_idx();
     void reset_c_idx();
     void reset_i_idx();
-    void set_finished();
+    void reset_all();
     
     W_vec send_weight_activation_to_mult_array();
     vector<int> send_weight_idx_to_mult_array();
@@ -41,7 +38,6 @@ private:
     int k_idx;
     int c_idx;
     int i_idx;
-    int finished;
     W_buffer w_buffer;
     W_indices w_indices;
 };

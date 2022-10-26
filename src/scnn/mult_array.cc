@@ -88,6 +88,11 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
         }
         io_cnt++;
         tensor_4D_idx input_idx = make_tuple(input_n, input_c, input_h, input_w);
+        tensor_4D_idx gt_input_idx = io_element.get_idx();
+        assert(get<0>(input_idx) == get<0>(gt_input_idx) && 
+               get<1>(input_idx) == get<1>(gt_input_idx) && 
+               get<2>(input_idx) == get<2>(gt_input_idx) && 
+               get<3>(input_idx) == get<3>(gt_input_idx));
 
         for (int f=0; f < w_vec.size(); f++) {
             // Fetch one weight element
@@ -101,6 +106,11 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
             weight_r = (w_cnt % (R * S)) % R;
             w_cnt++;
             tensor_4D_idx weight_idx = make_tuple(weight_k, weight_c, weight_s, weight_r);
+            tensor_4D_idx gt_weight_idx = w_element.get_idx();
+            assert(get<0>(weight_idx) == get<0>(gt_weight_idx) && 
+                   get<1>(weight_idx) == get<1>(gt_weight_idx) && 
+                   get<2>(weight_idx) == get<2>(gt_weight_idx) && 
+                   get<3>(weight_idx) == get<3>(gt_weight_idx));
 
             // Calculate new data and idx & Create new output element
             bool valid = true;

@@ -2,6 +2,7 @@
 #define SCNN_TENSOR_H_
 
 #include "datatypes.h"
+#include "config_dataflow.h"
 
 namespace SCNN {
 
@@ -18,6 +19,7 @@ public:
 
     // compress
     void compress_IO_sparse();
+    void compress_IO_sparse_tile(ConfigDataflow* cfg_layer, int tile_num);
 
     // get
     int get_N();

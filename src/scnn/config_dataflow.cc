@@ -9,6 +9,8 @@ ConfigDataflow::ConfigDataflow(
     unsigned _C,
     unsigned _W,
     unsigned _H,
+    unsigned _Orig_W,
+    unsigned _Orig_H,
     unsigned _R,
     unsigned _S, 
     unsigned _PE_Num_W,
@@ -20,6 +22,8 @@ ConfigDataflow::ConfigDataflow(
     C = _C;
     W = _W;
     H = _H;
+    Orig_W = _Orig_W;
+    Orig_H = _Orig_H;
     R = _R;
     S = _S; 
     PE_Num_W = _PE_Num_W;
@@ -34,6 +38,8 @@ unsigned ConfigDataflow::get_Kc() { return Kc; }
 unsigned ConfigDataflow::get_C() { return C; }
 unsigned ConfigDataflow::get_W() { return W; }
 unsigned ConfigDataflow::get_H() { return H; }
+unsigned ConfigDataflow::get_Orig_W() { return Orig_W; }
+unsigned ConfigDataflow::get_Orig_H() { return Orig_H; }
 unsigned ConfigDataflow::get_R() { return R; }
 unsigned ConfigDataflow::get_S() { return S; }
 unsigned ConfigDataflow::get_PE_Num_W() { return PE_Num_W; }
@@ -46,13 +52,15 @@ void ConfigDataflow::set_N(unsigned _N) { N = _N; }
 void ConfigDataflow::set_K(unsigned _K) { K = _K; }
 void ConfigDataflow::set_Kc(unsigned _Kc) { Kc = _Kc; }
 void ConfigDataflow::set_C(unsigned _C) { C = _C; }
-void ConfigDataflow::set_W(unsigned _W) { 
-    W = _W; 
-    reset_vec_tile(); 
+void ConfigDataflow::set_W(unsigned _W) { W = _W; }
+void ConfigDataflow::set_H(unsigned _H) { H = _H; }
+void ConfigDataflow::set_Orig_W(unsigned _Orig_W) {
+    Orig_W = _Orig_W;
+    reset_vec_tile();
 }
-void ConfigDataflow::set_H(unsigned _H) { 
-    H = _H; 
-    reset_vec_tile(); 
+void ConfigDataflow::set_Orig_H(unsigned _Orig_H) {
+    Orig_H = _Orig_H;
+    reset_vec_tile();
 }
 void ConfigDataflow::set_R(unsigned _R) { R = _R; }
 void ConfigDataflow::set_S(unsigned _S) { S = _S; }
@@ -66,8 +74,8 @@ void ConfigDataflow::set_PE_Num_H(unsigned _PE_Num_H) {
 }
 void ConfigDataflow::reset_vec_tile() {
     // Find Vec_Tile_W
-    int average_w = (int) W / PE_Num_W;
-    int remainder_w = (int) W % PE_Num_W;
+    int average_w = (int) Orig_W / PE_Num_W;
+    int remainder_w = (int) Orig_W % PE_Num_W;
     vector<int> new_vec_tile_w(PE_Num_W, average_w);
     for (int i=0; i<remainder_w; i++) {
         new_vec_tile_w[i]++;
@@ -75,8 +83,8 @@ void ConfigDataflow::reset_vec_tile() {
     Vec_Tile_W = new_vec_tile_w;
 
     // Find Vec_Tile_H
-    int average_h = (int) H / PE_Num_H;
-    int remainder_h = (int) H % PE_Num_H;
+    int average_h = (int) Orig_H / PE_Num_H;
+    int remainder_h = (int) Orig_H % PE_Num_H;
     vector<int> new_vec_tile_h(PE_Num_H, average_h);
     for (int i=0; i<remainder_h; i++) {
         new_vec_tile_h[i]++;

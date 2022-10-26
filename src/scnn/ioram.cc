@@ -2,20 +2,11 @@
 
 namespace SCNN {
 
-SparseRAM::SparseRAM(
-    IO_buffer _io_buffer, 
-    IO_indices _io_indices, 
-    ConfigArch* _cfg_arch, 
-    int _tile_num
-) {
+SparseRAM::SparseRAM(ConfigArch* _cfg_arch) {
     cfg_arch = _cfg_arch;
-    tile_num = _tile_num;
-    io_buffer = _io_buffer;
-    io_indices = _io_indices;
     n_idx = 0;
     c_idx = 0;
     i_idx = 0;
-    finished = 0;
 }
 
 void SparseRAM::set_tile_num(int _tile_num) { tile_num = _tile_num; }
@@ -26,7 +17,6 @@ int SparseRAM::get_tile_num() { return tile_num; }
 int SparseRAM::get_n_idx() { return n_idx; }
 int SparseRAM::get_c_idx() { return c_idx; }
 int SparseRAM::get_i_idx() { return i_idx; }
-int SparseRAM::get_finished() { return finished; }
 ConfigArch* SparseRAM::get_cfg_arch() { return cfg_arch; }
 
 void SparseRAM::incr_n_idx() { n_idx++; }
@@ -34,10 +24,13 @@ void SparseRAM::incr_c_idx() { c_idx++; }
 void SparseRAM::incr_i_idx() { i_idx++; }
 void SparseRAM::reset_c_idx() { c_idx = 0; }
 void SparseRAM::reset_i_idx() { i_idx = 0; }
-void SparseRAM::set_finished() { finished = 1; }
+void SparseRAM::reset_all() {
+    i_idx = 0;
+    c_idx = 0;
+    n_idx = 0;
+}
 
 IO_vec SparseRAM::send_input_activation_to_mult_array() {
-    assert(finished == 0);
     int I = (int) cfg_arch->get_mult_arr_I();
     IO_vec temp = io_buffer[n_idx][c_idx];
     IO_vec activation;
@@ -52,7 +45,6 @@ IO_vec SparseRAM::send_input_activation_to_mult_array() {
 }
 
 vector<int> SparseRAM::send_input_idx_to_mult_array() {
-    assert(finished == 0);
     int I = (int) cfg_arch->get_mult_arr_I();
     vector<int> temp = io_indices[n_idx][c_idx];
     vector<int> indices;

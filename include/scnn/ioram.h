@@ -9,10 +9,7 @@ namespace SCNN {
 class SparseRAM {
 
 public:
-    SparseRAM(IO_buffer _io_buffer, 
-              IO_indices _io_indices, 
-              ConfigArch* _cfg_arch, 
-              int _tile_num);
+    SparseRAM(ConfigArch* _cfg_arch);
     void set_tile_num(int _tile_num);
     void set_io_buffer(IO_buffer _io_buffer);
     void set_io_indices(IO_indices _io_indices);
@@ -21,7 +18,6 @@ public:
     int get_n_idx();
     int get_c_idx();
     int get_i_idx();
-    int get_finished();
     ConfigArch* get_cfg_arch();
 
     void incr_n_idx();
@@ -29,7 +25,7 @@ public:
     void incr_i_idx();
     void reset_c_idx();
     void reset_i_idx();
-    void set_finished();
+    void reset_all();
 
     IO_vec send_input_activation_to_mult_array();
     vector<int> send_input_idx_to_mult_array();
@@ -40,7 +36,6 @@ private:
     int n_idx;
     int c_idx;
     int i_idx;
-    int finished;
     IO_buffer io_buffer;
     IO_indices io_indices;
 };
