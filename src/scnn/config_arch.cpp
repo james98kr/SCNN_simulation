@@ -29,9 +29,11 @@ ConfigArch::ConfigArch(
 
     ioram_sparse_len = _ioram_sparse_len;
     ioram_idx_len = _ioram_idx_len;
-
     weight_sparse_len = _weight_sparse_len;
     weight_idx_len = _weight_idx_len;
+
+    acc_bank_num = _acc_bank_num;
+    max_num_elem_per_bank = _max_num_elem_per_bank;
 }
 
 unsigned ConfigArch::get_mult_arr_F() { return mult_arr_F; }

@@ -87,6 +87,7 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
             input_w += vec_tile_w[b];
         }
         io_cnt++;
+        
         tensor_4D_idx input_idx = make_tuple(input_n, input_c, input_h, input_w);
         tensor_4D_idx gt_input_idx = io_element.get_idx();
         assert(get<0>(input_idx) == get<0>(gt_input_idx) && 
@@ -116,7 +117,7 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
             bool valid = true;
             Fmap_t oa_data = io_element.get_data() * w_element.get_data();
             tensor_4D_idx oa_idx = calculate_oa_coordinates(input_idx, weight_idx);
-            if (get<2>(oa_idx) < 0 || get<3>(oa_idx) < 0 || get<2>(oa_idx) >= H || get<3>(oa_idx) >= W ) { valid = false; }
+            if (get<2>(oa_idx) < 0 || get<3>(oa_idx) < 0 || get<2>(oa_idx) >= cfg_layer->get_Orig_H() || get<3>(oa_idx) >= cfg_layer->get_Orig_W() ) { valid = false; }
             IO_element new_element(valid, oa_data, oa_idx);
 
             // Push into resulting IO_vec

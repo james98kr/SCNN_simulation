@@ -44,8 +44,13 @@ void IO_element::print() {
 void IO_element::set_valid(bool _valid) { valid = _valid; }
 void IO_element::set_data(Fmap_t _data) { data = _data; }
 void IO_element::set_idx(tensor_4D_idx _idx) { idx = _idx; }
+void IO_element::set_idx_in_bank(int _idx_in_bank) { idx_in_bank = _idx_in_bank; }
+
+void IO_element::accumulate(Fmap_t _data) { data += _data; }
+
 bool IO_element::get_valid() { return valid; }
 Fmap_t IO_element::get_data() { return data; }
 tensor_4D_idx IO_element::get_idx() { return idx; }
+int IO_element::get_idx_in_bank() { return idx_in_bank; }
 
 }

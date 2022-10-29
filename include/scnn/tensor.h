@@ -32,6 +32,9 @@ public:
     IO_buffer get_io_buffer();
     IO_indices get_io_indices();
 
+    // set
+    void accumulate_idx_to_val(Fmap_t val, tensor_4D_idx idx);
+
 private:
     int N;
     int C;

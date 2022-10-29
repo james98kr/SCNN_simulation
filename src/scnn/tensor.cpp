@@ -73,23 +73,26 @@ void Tensor4D_IO::initialize_value(Fmap_t init_value) {
 
 void Tensor4D_IO::print() {
     for (int n=0; n<N; n++) {
-        cout << "[ ";
+        cout << "[";
         for (int c=0; c<C; c++) {
-            cout << "[ ";
+            cout << "[";
             for (int h=0; h<H; h++) {
-                cout << "[ ";
+                cout << "[";
                 for (int w=0; w<W; w++) {
-                    cout << setw(10) << data[n][c][h][w] << " ";
+                    if (w <= (W - 2))
+                        cout << setw(10) << data[n][c][h][w] << ", ";
+                    else
+                        cout << setw(10) << data[n][c][h][w] << " ";
                 }
                 if (h == H-1)
-                    cout << "] ";
+                    cout << "]";
                 else
-                    cout << "] " << endl;
+                    cout << "], " << endl;
             }
             if (c == C-1)
-                cout << "] ";
+                cout << "]";
             else
-                cout << "] " << endl;
+                cout << "], " << endl;
         }
         cout << "] " << endl;
     }
@@ -211,6 +214,11 @@ Fmap_t**** Tensor4D_IO::get_data() { return data; }
 IO_buffer Tensor4D_IO::get_io_buffer() { return io_buffer; }
 IO_indices Tensor4D_IO::get_io_indices() { return io_indices; }
 
+void Tensor4D_IO::accumulate_idx_to_val(Fmap_t val, tensor_4D_idx idx) {
+    assert(get<0>(idx) < N && get<1>(idx) < C && get<2>(idx) < H && get<3>(idx) < W);
+    data[get<0>(idx)][get<1>(idx)][get<2>(idx)][get<3>(idx)] += val;
+}
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 Tensor4D_W::Tensor4D_W(int _K, int _C, int _S, int _R) {
@@ -284,23 +292,26 @@ void Tensor4D_W::initialize_value(Fmap_t init_value) {
 
 void Tensor4D_W::print() {
     for (int k=0; k<K; k++) {
-        cout << "[ ";
+        cout << "[";
         for (int c=0; c<C; c++) {
-            cout << "[ ";
+            cout << "[";
             for (int s=0; s<S; s++) {
-                cout << "[ ";
+                cout << "[";
                 for (int r=0; r<R; r++) {
-                    cout << setw(10) << data[k][c][s][r] << " ";
+                    if (r <= (R - 2))
+                        cout << setw(10) << data[k][c][s][r] << ", ";
+                    else
+                        cout << setw(10) << data[k][c][s][r] << " ";
                 }
                 if (s == S-1)
-                    cout << "] ";
+                    cout << "]";
                 else
-                    cout << "] " << endl;
+                    cout << "], " << endl;
             }
             if (c == C-1)
-                cout << "] ";
+                cout << "]";
             else
-                cout << "] " << endl;
+                cout << "], " << endl;
         }
         cout << "] " << endl;
     }
@@ -363,7 +374,7 @@ tensor_4D_idx Tensor4D_W::get_shape() {
     return shape;
 }
 
-Fmap_t**** Tensor4D_W::get_data() { return data; }
+Weight_t**** Tensor4D_W::get_data() { return data; }
 W_buffer Tensor4D_W::get_w_buffer() { return w_buffer; }
 W_indices Tensor4D_W::get_w_indices() { return w_indices; }
 

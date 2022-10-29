@@ -60,15 +60,20 @@ public:
     void set_valid(bool _valid);
     void set_data(Fmap_t _data);
     void set_idx(tensor_4D_idx _idx);
+    void set_idx_in_bank(int _idx_in_bank);
+
+    void accumulate(Fmap_t _data);
 
     bool get_valid();
     Fmap_t get_data();
     tensor_4D_idx get_idx();
+    int get_idx_in_bank();
 
 private:
     bool valid;
     Fmap_t data;
     tensor_4D_idx idx;
+    int idx_in_bank;
 };
 
 }

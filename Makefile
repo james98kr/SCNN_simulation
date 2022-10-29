@@ -1,7 +1,7 @@
 TOP_EXE := scnn
 CC := g++
-CPP_SUFFIX := cc
-CPP_PROTO_SUFFIX := pb.cc
+CPP_SUFFIX := cpp
+CPP_PROTO_SUFFIX := pb.cpp
 SRC_DIR := ./src
 CFLAGS := -std=c++11
 # CFLAGS := -W -Wall -g -std=c++11
