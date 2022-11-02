@@ -78,11 +78,11 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
         tile_w = tile_num % vec_tile_w.size();
         input_n = n_idx;
         input_c = c_idx;
-        input_h = io_cnt / W;
+        input_h = io_cnt / vec_tile_w[tile_w];
         for (int a=0; a<tile_h; a++) {
             input_h += vec_tile_h[a];
         }
-        input_w = io_cnt % W;
+        input_w = io_cnt % vec_tile_w[tile_w];
         for (int b=0; b<tile_w; b++) {
             input_w += vec_tile_w[b];
         }
@@ -90,6 +90,7 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
         
         tensor_4D_idx input_idx = make_tuple(input_n, input_c, input_h, input_w);
         tensor_4D_idx gt_input_idx = io_element.get_idx();
+
         assert(get<0>(input_idx) == get<0>(gt_input_idx) && 
                get<1>(input_idx) == get<1>(gt_input_idx) && 
                get<2>(input_idx) == get<2>(gt_input_idx) && 

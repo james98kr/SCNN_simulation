@@ -32,6 +32,7 @@ private:
     int ptr;
     bool finished;
 
+    vector<IO_vec> xbar_input;
     vector<IO_vec> banks;
 };
     

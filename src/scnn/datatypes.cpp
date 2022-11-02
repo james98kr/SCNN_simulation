@@ -15,7 +15,7 @@ W_element::W_element(
 
 void W_element::print() { 
     cout << "Valid: " << valid << ", Data: " << data << ", Index: " << \
-    get<0>(idx) << " " << get<1>(idx) << " " << get<2>(idx) << " " <<get<3>(idx) << endl; 
+    get<0>(idx) << " " << get<1>(idx) << " " << get<2>(idx) << " " << get<3>(idx) << endl; 
 }
 
 void W_element::set_valid(bool _valid) { valid = _valid; }
@@ -38,7 +38,8 @@ IO_element::IO_element(
 
 void IO_element::print() { 
     cout << "Valid: " << valid << ", Data: " << data << ", Index: " << \
-    get<0>(idx) << " " << get<1>(idx) << " " << get<2>(idx) << " " <<get<3>(idx) << endl; 
+    get<0>(idx) << " " << get<1>(idx) << " " << get<2>(idx) << " " <<get<3>(idx) << " " \
+    "idx_in_bank: " << idx_in_bank << endl; 
 }
 
 void IO_element::set_valid(bool _valid) { valid = _valid; }

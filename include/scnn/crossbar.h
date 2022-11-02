@@ -1,15 +1,17 @@
 #ifndef SCNN_CROSSBAR_H_
 #define SCNN_CROSSBAR_H_
 
+#include "common.h"
 #include "datatypes.h"
 #include "config_arch.h"
+#include "config_dataflow.h"
 
 namespace SCNN {
 
 class CrossBar {
     
 public:
-    CrossBar(ConfigArch* _cfg_arch);
+    CrossBar(ConfigArch* _cfg_arch, ConfigDataflow* _cfg_layer);
 
 	void clean();
 
@@ -24,6 +26,7 @@ public:
 private:
 	// CrossBar config
     ConfigArch* cfg_arch;
+    ConfigDataflow* cfg_layer;
 
     // I/O ports
     IO_vec port_in;

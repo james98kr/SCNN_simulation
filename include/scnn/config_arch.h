@@ -10,56 +10,73 @@ class ConfigArch {
 public:
     ConfigArch(
         // multiplier array F, I size
-        unsigned _mult_arr_F,
-        unsigned _mult_arr_I,
+        int _mult_arr_F=0,
+        int _mult_arr_I=0,
 
         // xbar
-        unsigned _xbar_in,
-        unsigned _xbar_out,
+        int _xbar_in=0,
+        int _xbar_out=0,
         
         // SRAM size
-        unsigned _ioram_sparse_len,
-        unsigned _ioram_idx_len,
-        unsigned _weight_sparse_len,
-        unsigned _weight_idx_len,
+        int _ioram_sparse_len=0,
+        int _ioram_idx_len=0,
+        int _weight_sparse_len=0,
+        int _weight_idx_len=0,
 
         // Accumulator bank
-        unsigned _acc_bank_num,
-        unsigned _max_num_elem_per_bank
+        int _acc_bank_num=0,
+        int _max_num_elem_per_bank=0
     );
 
-    unsigned get_mult_arr_F();
-    unsigned get_mult_arr_I();
+    // Get
+    int get_mult_arr_F();
+    int get_mult_arr_I();
 
-    unsigned get_xbar_in();
-    unsigned get_xbar_out();
+    int get_xbar_in();
+    int get_xbar_out();
     
-    unsigned get_ioram_sparse_len();
-    unsigned get_ioram_idx_len();
-    unsigned get_weight_sparse_len();
-    unsigned get_weight_idx_len();
+    int get_ioram_sparse_len();
+    int get_ioram_idx_len();
+    int get_weight_sparse_len();
+    int get_weight_idx_len();
 
-    unsigned get_acc_bank_num();
-    unsigned get_max_num_elem_per_bank();
+    int get_acc_bank_num();
+    int get_max_num_elem_per_bank();
+
+    // Set
+    void set_mult_arr_F(int _mult_arr_F);
+    void set_mult_arr_I(int _mult_arr_I);
+
+    void set_xbar_in(int _xbar_in);
+    void set_xbar_out(int _xbar_out);
+    
+    void set_ioram_sparse_len(int _ioram_sparse_len);
+    void set_ioram_idx_len(int _ioram_idx_len);
+    void set_weight_sparse_len(int _weight_sparse_len);
+    void set_weight_idx_len(int _weight_idx_len);
+
+    void set_acc_bank_num(int _acc_bank_num);
+    void set_max_num_elem_per_bank(int _max_num_elem_per_bank);
+    
 
 private:
     // multiplier array F, I size
-    unsigned mult_arr_F;
-    unsigned mult_arr_I;
+    int mult_arr_F;
+    int mult_arr_I;
 
     // xbar
-    unsigned xbar_in;
-    unsigned xbar_out;
+    int xbar_in;
+    int xbar_out;
     
     // SRAM size
-    unsigned ioram_sparse_len;
-    unsigned ioram_idx_len;
-    unsigned weight_sparse_len;
-    unsigned weight_idx_len;
+    int ioram_sparse_len;
+    int ioram_idx_len;
+    int weight_sparse_len;
+    int weight_idx_len;
 
     // Accumulator bank
-    unsigned acc_bank_num;
-    unsigned max_num_elem_per_bank;
+    int acc_bank_num;
+    int max_num_elem_per_bank;
 };
 
 }

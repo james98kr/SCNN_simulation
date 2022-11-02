@@ -9,6 +9,7 @@ AccumulatorBanks::AccumulatorBanks(ConfigArch* _cfg_arch) {
 
     for (int i=0; i<num_banks; i++) {
         IO_vec empty;
+        xbar_input.push_back(empty);
         banks.push_back(empty);
     }
 
@@ -19,13 +20,12 @@ AccumulatorBanks::AccumulatorBanks(ConfigArch* _cfg_arch) {
 void AccumulatorBanks::clean() {
     for (int i=0; i<banks.size(); i++)
         banks[i].clear();
-    banks.clear();
     ptr = 0;
     finished = false;
 }
 
 void AccumulatorBanks::receive_accum_inputs(vector<IO_vec> accum_input) {
-    banks = accum_input;
+    xbar_input = accum_input;
 }
 
 void AccumulatorBanks::insert_one_element_to_bank(IO_element elem, int bank_idx) {
@@ -64,9 +64,9 @@ void AccumulatorBanks::insert_one_element_to_bank(IO_element elem, int bank_idx)
 void AccumulatorBanks::accumulate_one_cycle() {
     finished = true;
     for (int i=0; i<num_banks; i++) {
-        if (ptr < banks[i].size()) {
+        if (ptr < xbar_input[i].size()) {
             finished = false;
-            insert_one_element_to_bank(banks[i][ptr], i);
+            insert_one_element_to_bank(xbar_input[i][ptr], i);
         }
     }
     ptr++;
@@ -83,6 +83,13 @@ void AccumulatorBanks::flush_to_output(Tensor4D_IO* output_tensor) {
 
 int AccumulatorBanks::get_num_banks() { return num_banks; }
 int AccumulatorBanks::get_num_elem_per_bank() { return num_elem_per_bank; }
-bool AccumulatorBanks::get_finished() { return finished; }
+bool AccumulatorBanks::get_finished() { 
+    if (finished) {
+        ptr = 0;
+        finished = false;
+        return !finished;
+    }
+    return finished;
+}
 
 }

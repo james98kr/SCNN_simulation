@@ -4,22 +4,22 @@ namespace SCNN {
 
 ConfigArch::ConfigArch(
     // multiplier array F, I size
-    unsigned _mult_arr_F,
-    unsigned _mult_arr_I,
+    int _mult_arr_F,
+    int _mult_arr_I,
 
     // xbar
-    unsigned _xbar_in,
-    unsigned _xbar_out,
+    int _xbar_in,
+    int _xbar_out,
     
     // SRAM size
-    unsigned _ioram_sparse_len,
-    unsigned _ioram_idx_len,
-    unsigned _weight_sparse_len,
-    unsigned _weight_idx_len,
+    int _ioram_sparse_len,
+    int _ioram_idx_len,
+    int _weight_sparse_len,
+    int _weight_idx_len,
 
     // Accumulator bank
-    unsigned _acc_bank_num,
-    unsigned _max_num_elem_per_bank
+    int _acc_bank_num,
+    int _max_num_elem_per_bank
 ) {
     mult_arr_F = _mult_arr_F;
     mult_arr_I = _mult_arr_I;
@@ -36,15 +36,26 @@ ConfigArch::ConfigArch(
     max_num_elem_per_bank = _max_num_elem_per_bank;
 }
 
-unsigned ConfigArch::get_mult_arr_F() { return mult_arr_F; }
-unsigned ConfigArch::get_mult_arr_I() { return mult_arr_I; }
-unsigned ConfigArch::get_xbar_in() { return xbar_in; }
-unsigned ConfigArch::get_xbar_out() { return xbar_out; }
-unsigned ConfigArch::get_ioram_sparse_len() { return ioram_sparse_len; }
-unsigned ConfigArch::get_ioram_idx_len() { return ioram_idx_len; }
-unsigned ConfigArch::get_weight_sparse_len() { return weight_sparse_len; }
-unsigned ConfigArch::get_weight_idx_len() { return weight_idx_len; }
-unsigned ConfigArch::get_acc_bank_num() { return acc_bank_num; }
-unsigned ConfigArch::get_max_num_elem_per_bank() { return max_num_elem_per_bank; }
+int ConfigArch::get_mult_arr_F() { return mult_arr_F; }
+int ConfigArch::get_mult_arr_I() { return mult_arr_I; }
+int ConfigArch::get_xbar_in() { return xbar_in; }
+int ConfigArch::get_xbar_out() { return xbar_out; }
+int ConfigArch::get_ioram_sparse_len() { return ioram_sparse_len; }
+int ConfigArch::get_ioram_idx_len() { return ioram_idx_len; }
+int ConfigArch::get_weight_sparse_len() { return weight_sparse_len; }
+int ConfigArch::get_weight_idx_len() { return weight_idx_len; }
+int ConfigArch::get_acc_bank_num() { return acc_bank_num; }
+int ConfigArch::get_max_num_elem_per_bank() { return max_num_elem_per_bank; }
+
+void ConfigArch::set_mult_arr_F(int _mult_arr_F) { mult_arr_F = _mult_arr_F; }
+void ConfigArch::set_mult_arr_I(int _mult_arr_I) { mult_arr_I = _mult_arr_I; }
+void ConfigArch::set_xbar_in(int _xbar_in) { xbar_in = _xbar_in; }
+void ConfigArch::set_xbar_out(int _xbar_out) { xbar_out = _xbar_out; }
+void ConfigArch::set_ioram_sparse_len(int _ioram_sparse_len) { ioram_sparse_len = _ioram_sparse_len; }
+void ConfigArch::set_ioram_idx_len(int _ioram_idx_len) { ioram_idx_len = _ioram_idx_len; }
+void ConfigArch::set_weight_sparse_len(int _weight_sparse_len) { weight_sparse_len = _weight_sparse_len; }
+void ConfigArch::set_weight_idx_len(int _weight_idx_len) { weight_idx_len = _weight_idx_len; }
+void ConfigArch::set_acc_bank_num(int _acc_bank_num) { acc_bank_num = _acc_bank_num; }
+void ConfigArch::set_max_num_elem_per_bank(int _max_num_elem_per_bank) { max_num_elem_per_bank = _max_num_elem_per_bank; }
 
 } // Namespace SCNN

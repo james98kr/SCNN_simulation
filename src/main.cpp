@@ -8,52 +8,48 @@
 #include "../include/scnn/crossbar.h"
 #include "../include/scnn/accum_banks.h"
 #include "../include/scnn/golden_model.h"
+#include "../include/simulator/config_parser.h"
 
 using namespace SCNN;
 
+int main(int argc, char** argv) {
+    ConfigParser configparser = ConfigParser(argv[1]);
+    ConfigArch arch = configparser.parse_cfg_arch();
+    vector<ConfigDataflow> vec_layers = configparser.parse_cfg_layers();
+    ConfigDataflow layer = vec_layers[0];
+    
+    int N = layer.get_N();
+    int C = layer.get_C();
+    int Orig_H = layer.get_Orig_H();
+    int Orig_W = layer.get_Orig_W();
+    int K = layer.get_K();
+    int Kc = layer.get_Kc();
+    int S = layer.get_S();
+    int R = layer.get_R();
+    int PE_Num_W = layer.get_PE_Num_W();
+    int PE_Num_H = layer.get_PE_Num_H();
+    float io_sparsity = layer.get_io_sparsity();
+    float w_sparsity = layer.get_w_sparsity();
 
-// need to resolve bug when size of input activation is 
-// smaller than number of PEs
-
-int main() {
-    int N = 1;
-    int C = 1;
-    int Orig_H = 5;
-    int Orig_W = 5;
-    int K = 1;
-    int Kc = 1;
-    int S = 5;
-    int R = 5;
-    int PE_Num_W = 1;
-    int PE_Num_H = 1;
-    int H = Orig_H / PE_Num_H;
-    int W = Orig_W / PE_Num_W;
-    int I = 4;
-    int F = 4;
-    int xbar_in = I * F;
-    int xbar_out = xbar_in * 2;
-    int acc_bank_num = F * I * 2;
-    float sparsity = 0.6;
-
-    ConfigArch arch = ConfigArch(F,I,xbar_in,xbar_out,1000,1000,1000,1000,acc_bank_num,1000);
-    ConfigDataflow layer = ConfigDataflow(N,K,Kc,C,W,H,Orig_W,Orig_H,R,S,PE_Num_W,PE_Num_H);
     SparseRAM sram0 = SparseRAM(&arch);
     SparseRAM sram1 = SparseRAM(&arch);
     WeightFIFO wfifo = WeightFIFO(&arch, &layer);
     IORAM ioram = IORAM(&sram0, &sram1);
     MultArray multarray = MultArray(&arch, &layer);
-    CrossBar crossbar = CrossBar(&arch);
+    CrossBar crossbar = CrossBar(&arch, &layer);
     AccumulatorBanks accumbanks = AccumulatorBanks(&arch);
 
     Tensor4D_W w(K,C,S,R);
-    w.initialize_random(sparsity, -1, 1);
+    w.initialize_random(w_sparsity, -1, 1);
+    // w.initialize_value(1);
     w.compress_W_sparse(Kc);
 
     wfifo.set_w_buffer(w.get_w_buffer());
     wfifo.set_w_indices(w.get_w_indices());
 
     Tensor4D_IO io(N,C,Orig_H,Orig_W);
-    io.initialize_random(sparsity, -1, 1);
+    io.initialize_random(io_sparsity, -1, 1);
+    // io.initialize_value(1);
 
     Tensor4D_IO final(N,K,Orig_H,Orig_W);
     final.initialize_value(0);
@@ -80,7 +76,7 @@ int main() {
         IO_vec out;
 
         for (int n=0; n<N; n++) {
-            for (int kprm=0; kprm<K/Kc; kprm++) {
+            for (int kprm=0; kprm<(K/Kc); kprm++) {
                 // cout << "kprm: " << kprm << endl;
                 for (int c=0; c<C; c++) {
                     // cout << "c: " << c << endl;
@@ -96,33 +92,33 @@ int main() {
                             w_idx = wfifo.send_weight_idx_to_mult_array();
                             if (w_vec.size() <= 0)
                                 break;
-                            multarray.load_weight(w_vec, w_idx);
+                            
 
                             // Perform F x I parallel cartesian product calculation
+                            multarray.load_weight(w_vec, w_idx);
                             out = multarray.cartesian_product(tile_num, ioram.get_ram0()->get_n_idx(), ioram.get_ram0()->get_c_idx(), wfifo.get_k_idx());
-                            // This code for checking validity of algorithm up to multarray
-                            for (int p=0; p<out.size(); p++) {
-                                if (!out[p].get_valid()) {
-                                    continue;
-                                }
-                                final.accumulate_idx_to_val(out[p].get_data(), out[p].get_idx());
-                            }
-
-                            // // Distribute output from multiplier array to corresponding accumulator buffer banks 
-                            // crossbar.receive_port_in(out);
-                            // flush_port_out = crossbar.distribute_input_to_output();
-                            // // This code for checking how elements are spread out among accumulator banks
-                            // // for (int idk=0; idk<flush_port_out.size(); idk++) {
-                            // //     if (flush_port_out[idk].size() != 0) 
-                            // //         cout << flush_port_out[idk].size() << " ";
-                            // // }
-                            // // cout << " " << endl;
-
-                            // // Accumulator buffer bank
-                            // accumbanks.receive_accum_inputs(flush_port_out);
-                            // while (!accumbanks.get_finished()) {
-                            //     accumbanks.accumulate_one_cycle();
+                            // // This code for checking validity of algorithm up to multarray
+                            // for (int p=0; p<out.size(); p++) {
+                            //     if (!out[p].get_valid()) {
+                            //         continue;
+                            //     }
+                            //     final.accumulate_idx_to_val(out[p].get_data(), out[p].get_idx());
                             // }
+
+                            // Distribute output from multiplier array to corresponding accumulator buffer banks 
+                            crossbar.receive_port_in(out);
+                            flush_port_out = crossbar.distribute_input_to_output();
+                            // // This code for checking how elements are spread out among accumulator banks
+                            // for (int idk=0; idk<flush_port_out.size(); idk++) {
+                            //     if (flush_port_out[idk].size() > 1) 
+                            //         cout << flush_port_out[idk].size() << " ";
+                            // }
+                            // cout << " " << endl;
+
+                            // Accumulator buffer bank
+                            accumbanks.receive_accum_inputs(flush_port_out);
+                            while (!accumbanks.get_finished())
+                                accumbanks.accumulate_one_cycle();
 
                             wfifo.incr_i_idx();
                         }
@@ -141,6 +137,7 @@ int main() {
                 wfifo.reset_c_idx();
                 wfifo.incr_k_idx();
             }
+            ioram.get_ram0()->incr_n_idx();
             wfifo.reset_k_idx();
         }
     }

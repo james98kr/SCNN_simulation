@@ -45,6 +45,8 @@ GoldenConvModel::~GoldenConvModel() {
 void GoldenConvModel::golden_convolution() {
     Fmap_t**** inputdata = tensor_input->get_data();
     Weight_t**** weightdata = tensor_weight->get_data();
+    int h_off = S / 2;
+    int w_off = R / 2;
 
     cout << "Performing golden convolution..." << endl;
     for (int n=0; n<N; n++) {
@@ -54,9 +56,9 @@ void GoldenConvModel::golden_convolution() {
                     for (int w=0; w<W; w++) {
                         for (int s=0; s<S; s++) {
                             for (int r=0; r<R; r++) {
-                                if (h+s-1 < 0 || h+s-1 >= H || w+r-1 < 0 || w+r-1 >= W)
+                                if (h+s-h_off < 0 || h+s-h_off >= H || w+r-w_off < 0 || w+r-w_off >= W)
                                     continue;
-                                ground_truth[n][k][h][w] += inputdata[n][c][h+s-1][w+r-1] * weightdata[k][c][s][r];
+                                ground_truth[n][k][h][w] += inputdata[n][c][h+s-h_off][w+r-w_off] * weightdata[k][c][s][r];
                             }
                         }
                     }
@@ -82,31 +84,6 @@ bool GoldenConvModel::validation(Tensor4D_IO* my_output) {
                 }
             }
         }
-    }
-
-    for (int n=0; n<N; n++) {
-        cout << "[";
-        for (int k=0; k<K; k++) {
-            cout << "[";
-            for (int h=0; h<H; h++) {
-                cout << "[";
-                for (int w=0; w<W; w++) {
-                    if (w <= (W - 2))
-                        cout << setw(10) << ground_truth[n][k][h][w] << ", ";
-                    else
-                        cout << setw(10) << ground_truth[n][k][h][w] << " ";
-                }
-                if (h == H-1)
-                    cout << "]";
-                else
-                    cout << "], " << endl;
-            }
-            if (k == K-1)
-                cout << "]";
-            else
-                cout << "], " << endl;
-        }
-        cout << "] " << endl;
     }
 
     if (!ret) {

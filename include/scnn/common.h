@@ -2,16 +2,15 @@
 #define SCNN_COMMON_H_
 
 #include <algorithm>
+#include <cstdlib>
 #include <cassert>
 #include <iomanip>
 #include <iostream>
+#include <fstream>
 #include <cmath>
-#include <deque>
+#include <string>
 #include <vector>
 #include <tuple>
-#include <string>
-#include <set>
-#include <map>
 #include <random>
 
 namespace SCNN {
