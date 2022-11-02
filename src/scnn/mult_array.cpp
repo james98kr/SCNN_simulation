@@ -57,8 +57,6 @@ IO_vec MultArray::cartesian_product(int tile_num, int n_idx, int c_idx, int k_id
     vector<int> vec_tile_h = cfg_layer->get_Vec_Tile_H();
     IO_element io_element(true, 0, make_tuple(0,0,0,0));
     W_element w_element(true, 0, make_tuple(0,0,0,0));
-    int H = (int) cfg_layer->get_H();
-    int W = (int) cfg_layer->get_W();
     int input_n, input_c, input_h, input_w, tile_h, tile_w;
     int S = (int) cfg_layer->get_S();
     int R = (int) cfg_layer->get_R();

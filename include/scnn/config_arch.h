@@ -28,6 +28,8 @@ public:
         int _max_num_elem_per_bank=0
     );
 
+    void print();
+
     // Get
     int get_mult_arr_F();
     int get_mult_arr_I();
@@ -57,7 +59,6 @@ public:
 
     void set_acc_bank_num(int _acc_bank_num);
     void set_max_num_elem_per_bank(int _max_num_elem_per_bank);
-    
 
 private:
     // multiplier array F, I size

@@ -36,6 +36,15 @@ ConfigArch::ConfigArch(
     max_num_elem_per_bank = _max_num_elem_per_bank;
 }
 
+void ConfigArch::print() {
+    cout << "################# Configurations for SCNN Architecture #################" << endl;
+    cout << "Multiplier array size (F, I): (" << mult_arr_F << ", " << mult_arr_I << ")" << endl;
+    cout << "Crossbar port_in: " << xbar_in << endl;
+    cout << "Crossbar port_out: " << xbar_out << endl;
+    cout << "Accumulator bank number: " << acc_bank_num << endl;
+    cout << "########################################################################" << endl;
+}
+
 int ConfigArch::get_mult_arr_F() { return mult_arr_F; }
 int ConfigArch::get_mult_arr_I() { return mult_arr_I; }
 int ConfigArch::get_xbar_in() { return xbar_in; }

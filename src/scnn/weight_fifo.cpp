@@ -2,12 +2,8 @@
 
 namespace SCNN {
 
-WeightFIFO::WeightFIFO(
-    ConfigArch* _cfg_arch,
-    ConfigDataflow* _cfg_layer
-) {
+WeightFIFO::WeightFIFO(ConfigArch* _cfg_arch) {
     cfg_arch = _cfg_arch;
-    cfg_layer = _cfg_layer;
     k_idx = 0;
     c_idx = 0;
     i_idx = 0;
@@ -20,7 +16,6 @@ int WeightFIFO::get_k_idx() { return k_idx; }
 int WeightFIFO::get_c_idx() { return c_idx; }
 int WeightFIFO::get_i_idx() { return i_idx; }
 ConfigArch* WeightFIFO::get_cfg_arch() { return cfg_arch; }
-ConfigDataflow* WeightFIFO::get_cfg_layer() { return cfg_layer; }
 
 void WeightFIFO::incr_k_idx() { k_idx++; }
 void WeightFIFO::incr_c_idx() { c_idx++; }

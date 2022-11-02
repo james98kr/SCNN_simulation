@@ -19,6 +19,7 @@ public:
 	vector<IO_vec> distribute_input_to_output();
 	int get_num_port_in();
 	int get_num_port_out();
+    void set_cfg_layer(ConfigDataflow* _cfg_layer);
 
     int hash_function_bank_idx(tensor_4D_idx idx);
     int hash_function_idx_in_bank(tensor_4D_idx idx);

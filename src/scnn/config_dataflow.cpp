@@ -35,6 +35,17 @@ ConfigDataflow::ConfigDataflow(
     reset_vec_tile();
 }
 
+void ConfigDataflow::print(int layer_num) {
+    cout << "" << endl;
+    cout << "Configurations for layer " << layer_num << endl;
+    cout << "- Input activation shape (N, C, H, W): (" << N << ", " << C << ", " << Orig_H << ", " << Orig_W << ")" << endl;
+    cout << "- Weight shape (K, C, S, R): (" << K << ", " << C << ", " << S << ", " << R << ")" << endl;
+    cout << "- Temporal PE config (PE_Num_H, PE_Num_W): (" << PE_Num_H << ", " << PE_Num_W << ")" << endl;
+    cout << "- Kc: " << Kc << endl;
+    cout << "- Input activation sparsity: " << io_sparsity << endl;
+    cout << "- Weight sparsity: " << w_sparsity << endl;
+}
+
 // Get
 int ConfigDataflow::get_N() { return N; }
 int ConfigDataflow::get_K() { return K; }

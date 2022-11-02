@@ -25,6 +25,8 @@ public:
         float _w_sparsity=0
     );
 
+    void print(int layer_num);
+
     // Get
     int get_N();
     int get_K();

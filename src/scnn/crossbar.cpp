@@ -33,13 +33,9 @@ vector<IO_vec> CrossBar::distribute_input_to_output() {
     return port_out;
 }
 
-int CrossBar::get_num_port_in() {
-    return num_port_in;
-}
-
-int CrossBar::get_num_port_out() {
-    return num_port_out;
-}
+int CrossBar::get_num_port_in() { return num_port_in; }
+int CrossBar::get_num_port_out() { return num_port_out; }
+void CrossBar::set_cfg_layer(ConfigDataflow* _cfg_layer) { cfg_layer = _cfg_layer; }
 
 int CrossBar::hash_function_bank_idx(tensor_4D_idx idx) {
     // int sum_of_idx = get<0>(idx) + get<1>(idx) + get<2>(idx) + get<3>(idx);

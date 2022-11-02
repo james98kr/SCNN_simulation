@@ -11,7 +11,7 @@ public:
     GoldenConvModel(Tensor4D_IO* _tensor_input, Tensor4D_W* _tensor_weight);
     ~GoldenConvModel();
     void golden_convolution();
-    bool validation(Tensor4D_IO* my_ouptut);
+    bool validation(Tensor4D_IO* my_ouptut, int layer_num);
 
 private:
     Tensor4D_IO* tensor_input;

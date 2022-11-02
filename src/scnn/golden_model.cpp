@@ -68,8 +68,8 @@ void GoldenConvModel::golden_convolution() {
     }
 }
 
-bool GoldenConvModel::validation(Tensor4D_IO* my_output) {
-    cout << "Performing validation..." << endl;
+bool GoldenConvModel::validation(Tensor4D_IO* my_output, int layer_num) {
+    cout << "Performing validation for layer " << layer_num << "..." << endl;
     Fmap_t**** my_data = my_output->get_data();
     bool ret = true;
 
@@ -90,7 +90,7 @@ bool GoldenConvModel::validation(Tensor4D_IO* my_output) {
         cout << "Validation Failed: Incorrect Model" << endl;
         assert(ret);
     }
-    cout << "########## Validation Complete: Model is Correct! ##########" << endl;
+    cout << "*** Validation Complete: Output correct for layer " << layer_num << "! ***" << endl;
     return ret;
 }
 
