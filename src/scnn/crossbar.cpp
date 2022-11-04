@@ -43,8 +43,10 @@ int CrossBar::hash_function_bank_idx(tensor_4D_idx idx) {
     int k = get<1>(idx);
     int h = get<2>(idx);
     int w = get<3>(idx);
-    int mult = 7591;
-    return ((k * mult * mult) + (h * mult) + w) % num_port_out;
+    int mult = 373;
+    int ret = ((k * mult * mult) + (h * mult) + w) % num_port_out;
+    assert(ret >= 0 && ret < num_port_out);
+    return ret;
 }
 
 int CrossBar::hash_function_idx_in_bank(tensor_4D_idx idx) {

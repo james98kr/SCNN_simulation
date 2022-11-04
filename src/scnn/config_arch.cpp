@@ -37,6 +37,7 @@ ConfigArch::ConfigArch(
 }
 
 void ConfigArch::print() {
+    cout << "" << endl;
     cout << "################# Configurations for SCNN Architecture #################" << endl;
     cout << "Multiplier array size (F, I): (" << mult_arr_F << ", " << mult_arr_I << ")" << endl;
     cout << "Crossbar port_in: " << xbar_in << endl;

@@ -12,10 +12,13 @@ Tensor4D_IO::Tensor4D_IO(int _N, int _C, int _H, int _W) {
     Fmap_t**** _data = new Fmap_t***[_N];
     for (int n=0; n<_N; n++) {
         _data[n] = new Fmap_t**[_C];
+        assert(_data[n]);
         for (int c=0; c<_C; c++) {
             _data[n][c] = new Fmap_t*[_H];
+            assert(_data[n][c]);
             for (int h=0; h<_H; h++) {
                 _data[n][c][h] = new Fmap_t[_W];
+                assert(_data[n][c][h]);
             }
         }
     }
@@ -231,10 +234,13 @@ Tensor4D_W::Tensor4D_W(int _K, int _C, int _S, int _R) {
     Weight_t**** _data = new Weight_t***[_K];
     for (int k=0; k<_K; k++) {
         _data[k] = new Weight_t**[_C];
+        assert(_data[k]);
         for (int c=0; c<_C; c++) {
             _data[k][c] = new Weight_t*[_S];
+            assert(_data[k][c]);
             for (int s=0; s<_S; s++) {
                 _data[k][c][s] = new Weight_t[_R];
+                assert(_data[k][c][s]);
             }
         }
     }

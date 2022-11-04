@@ -1,4 +1,4 @@
-Num_Layers: 2
+Num_Layers: 1
 
 I: 4
 F: 4
@@ -6,26 +6,13 @@ defval: 1000
 
 N: 1
 C: 3
-Orig_H: 224
-Orig_W: 224
+Orig_H: 56
+Orig_W: 56
 K: 4
 Kc: 2
-S: 5
-R: 5
+S: 3
+R: 3
 PE_Num_H: 8
 PE_Num_W: 8
-io_sparsity: 0.6
-w_sparsity: 0.6
-
-N: 1
-C: 4
-Orig_H: 224
-Orig_W: 224
-K: 4
-Kc: 2
-S: 5
-R: 5
-PE_Num_H: 8
-PE_Num_W: 8
-io_sparsity: 0.6
-w_sparsity: 0.6
+io_sparsity: 0.3
+w_sparsity: 0.59

@@ -36,6 +36,8 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
     float io_sparsity = cfg_layer->get_io_sparsity();
     float w_sparsity = cfg_layer->get_w_sparsity();
 
+    int cycle = 0;
+
     // Initialize final tensor that will be returned
     vector<IO_vec> flush_port_out;
     Tensor4D_IO final(N,K,Orig_H,Orig_W);
@@ -92,15 +94,15 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
                             // Distribute output from multiplier array to corresponding accumulator buffer banks 
                             crossbar->receive_port_in(out);
                             flush_port_out = crossbar->distribute_input_to_output();
-
+                            
                             // Accumulator buffer bank
                             accumbanks->receive_accum_inputs(flush_port_out);
                             while (!accumbanks->get_finished())
                                 accumbanks->accumulate_one_cycle();
+                                cycle++;
 
                             wfifo->incr_i_idx();
                         }
-
                         wfifo->reset_i_idx();
                         ioram->get_ram0()->incr_i_idx();
                         multarray->reset_w_cnt();
@@ -119,6 +121,8 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
             wfifo->reset_k_idx();
         }
     }
+
+    cout << "Total number of cycles: " << cycle << endl;
 
     return final;
 }

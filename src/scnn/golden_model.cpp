@@ -26,7 +26,7 @@ GoldenConvModel::GoldenConvModel(Tensor4D_IO* _tensor_input, Tensor4D_W* _tensor
     }
 
     ground_truth = _ground_truth;
-    epsilon = 1e-5;
+    epsilon = 1e-4;
 }
 
 GoldenConvModel::~GoldenConvModel() {
