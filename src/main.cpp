@@ -6,6 +6,7 @@ using namespace SCNN;
 
 int main(int argc, char** argv) {
     // Parse YAML file for configuration
+    assert(("Need to specify config file path", argc >= 2));
     ConfigParser configparser = ConfigParser(argv[1]);
     ConfigArch arch = configparser.parse_cfg_arch();
     vector<ConfigDataflow> vec_layers = configparser.parse_cfg_layers();
