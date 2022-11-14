@@ -38,6 +38,7 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
 
     int cycle = 0;
     bool loop_terminate = false;
+    bool loop_start = true;
 
     // Initialize final tensor that will be returned
     Tensor4D_IO final(N,K,Orig_H,Orig_W);
@@ -73,62 +74,82 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
         for (int n=0; n<N; n++) {
             for (int kprm=0; kprm<(K/Kc); kprm++) {
                 // cout << "kprm: " << kprm << endl;
-                for (int c=0; c<C; c++) {
-                    // cout << "c: " << c << endl;
-                    while (true) {
-                        // Fetch input activation from IORAM
-                        io_vec = ioram->get_ram0()->send_input_activation_to_mult_array();
-                        io_idx = ioram->get_ram0()->send_input_idx_to_mult_array();
-                        ioram->get_ram0()->incr_i_idx();
-                        multarray->load_input(io_vec, io_idx);
-                        if (io_vec.size() <= 0)
-                            break;
+                while (true) {
+                    // Accumulator Buffer Bank: Perform accumulation
+                    while (!accumbanks->get_finished())
+                        accumbanks->accumulate_one_cycle();
 
-                        while (true) {
-                            // Accumulator buffer bank
-                            while (!accumbanks->get_finished())
-                                accumbanks->accumulate_one_cycle();
+                    // CrossBar: Distribute output to corresponding accumulator buffer banks 
+                    crossbar_out = crossbar->distribute_input_to_output();
+                    accumbanks->receive_accum_inputs(crossbar_out);
 
-                            // CrossBar: Distribute output to corresponding accumulator buffer banks 
-                            crossbar_out = crossbar->distribute_input_to_output();
-                            accumbanks->receive_accum_inputs(crossbar_out);
+                    // Multiplier Array: Perform F x I parallel cartesian product calculation
+                    multarray_out = multarray->cartesian_product(tile_num, ioram->get_ram0()->get_n_idx(), ioram->get_ram0()->get_c_idx(), wfifo->get_k_idx());
+                    crossbar->receive_port_in(multarray_out);
 
-                            // Multiplier Array: Perform F x I parallel cartesian product calculation
-                            multarray_out = multarray->cartesian_product(tile_num, ioram->get_ram0()->get_n_idx(), ioram->get_ram0()->get_c_idx(), wfifo->get_k_idx());
-                            crossbar->receive_port_in(multarray_out);
-
-                            // WFIFO: Fetch weight from WFIFO
+                    // IORAM, WFIFO: Fetch input activations and weight
+                    if (wfifo->get_c_idx() < C) {
+                        w_vec = wfifo->send_weight_activation_to_mult_array();
+                        w_idx = wfifo->send_weight_idx_to_mult_array();
+                        wfifo->incr_i_idx();
+                        multarray->load_weight(w_vec, w_idx);
+                        if (loop_start) {
+                            io_vec = ioram->get_ram0()->send_input_activation_to_mult_array();
+                            io_idx = ioram->get_ram0()->send_input_idx_to_mult_array();
+                            ioram->get_ram0()->incr_i_idx();
+                            multarray->load_input(io_vec, io_idx);
+                            loop_start = false;
+                        }
+                        
+                        if (w_vec.size() <= 0 && io_vec.size() > 0) {
+                            wfifo->reset_i_idx();
+                            multarray->reset_w_cnt();
                             w_vec = wfifo->send_weight_activation_to_mult_array();
                             w_idx = wfifo->send_weight_idx_to_mult_array();
-                            multarray->load_weight(w_vec, w_idx);
                             wfifo->incr_i_idx();
+                            multarray->load_weight(w_vec, w_idx);
 
-                            // Increment cycle
-                            cycle++;
+                            io_vec = ioram->get_ram0()->send_input_activation_to_mult_array();
+                            io_idx = ioram->get_ram0()->send_input_idx_to_mult_array();
+                            ioram->get_ram0()->incr_i_idx();
+                            multarray->load_input(io_vec, io_idx);
+                        }
+                        if (io_vec.size() <= 0) {
+                            wfifo->reset_i_idx();
+                            wfifo->incr_c_idx();
+                            ioram->get_ram0()->reset_i_idx();
+                            ioram->get_ram0()->incr_c_idx();
+                            multarray->reset_w_cnt();
+                            multarray->reset_io_cnt();
+                            loop_start = true;
+                        }
+                    }
+                    if (wfifo->get_c_idx() == C) {
+                        w_vec.clear();
+                        w_idx.clear();
+                        io_vec.clear();
+                        io_idx.clear();
+                        multarray->load_weight(w_vec, w_idx);
+                        multarray->load_input(io_vec, io_idx);
+                    }
 
-                            // Condition for loop termination
-                            if (loop_terminate) {
+                    // Increment cycle
+                    cycle++;
+
+                    // Condition for loop termination
+                    if (loop_terminate) {
+                        loop_terminate = false;
+                        break;
+                    }
+                    if (wfifo->get_c_idx() == C && multarray_out.size() <= 0) {
+                        loop_terminate = true;
+                        for (int t=0; t<crossbar_out.size(); t++) {
+                            if (crossbar_out[t].size() > 0) {
                                 loop_terminate = false;
                                 break;
                             }
-                            if (w_vec.size() <= 0 && multarray_out.size() <= 0) {
-                                loop_terminate = true;
-                                for (int t=0; t<crossbar_out.size(); t++) {
-                                    if (crossbar_out[t].size() > 0) {
-                                        loop_terminate = false;
-                                        break;
-                                    }
-                                }
-                            }
                         }
-
-                        wfifo->reset_i_idx();
-                        multarray->reset_w_cnt();
                     }
-                    ioram->get_ram0()->reset_i_idx();
-                    ioram->get_ram0()->incr_c_idx();
-                    wfifo->incr_c_idx();
-                    multarray->reset_io_cnt();
                 }
                 accumbanks->flush_to_output(&final);
                 ioram->get_ram0()->reset_c_idx();
