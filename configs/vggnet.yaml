@@ -1,31 +1,174 @@
-Num_Layers: 2
+Num_Layers: 13
 
 I: 4
 F: 4
 defval: 1000
 
-N: 1
+N: 1  # conv1_1
 C: 3
-Orig_H: 56
-Orig_W: 56
-K: 4
-Kc: 2
+Orig_H: 224
+Orig_W: 224
+K: 64
+Kc: 8
 S: 3
 R: 3
 PE_Num_H: 8
 PE_Num_W: 8
-io_sparsity: 0.3
+io_sparsity: 0
+w_sparsity: 0.43
+
+N: 1  # conv1_2
+C: 64
+Orig_H: 224
+Orig_W: 224
+K: 64
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.5
+w_sparsity: 0.79
+
+N: 1  # conv2_1
+C: 64
+Orig_H: 112
+Orig_W: 112
+K: 128
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.11
+w_sparsity: 0.67
+
+N: 1  # conv2_2
+C: 128
+Orig_H: 112
+Orig_W: 112
+K: 128
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.21
+w_sparsity: 0.65
+
+N: 1  # conv3_1
+C: 128
+Orig_H: 56
+Orig_W: 56
+K: 256
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.19
+w_sparsity: 0.47
+
+N: 1  # conv3_2
+C: 256
+Orig_H: 56
+Orig_W: 56
+K: 256
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.37
+w_sparsity: 0.78
+
+N: 1  # conv3_3
+C: 256
+Orig_H: 56
+Orig_W: 56
+K: 256
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.31
 w_sparsity: 0.59
 
-N: 1
-C: 4
-Orig_H: 37
-Orig_W: 37
-K: 4
-Kc: 1
-S: 5
-R: 5
-PE_Num_H: 7
-PE_Num_W: 7
-io_sparsity: 0
-w_sparsity: 0.59
+N: 1  # conv4_1
+C: 256
+Orig_H: 28
+Orig_W: 28
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.29
+w_sparsity: 0.68
+
+N: 1  # conv4_2
+C: 512
+Orig_H: 28
+Orig_W: 28
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.5
+w_sparsity: 0.74
+
+N: 1  # conv4_3
+C: 512
+Orig_H: 28
+Orig_W: 28
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.55
+w_sparsity: 0.66
+
+N: 1  # conv5_1
+C: 512
+Orig_H: 14
+Orig_W: 14
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.61
+w_sparsity: 0.65
+
+N: 1  # conv5_2
+C: 512
+Orig_H: 14
+Orig_W: 14
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.67
+w_sparsity: 0.71
+
+N: 1  # conv5_3
+C: 512
+Orig_H: 14
+Orig_W: 14
+K: 512
+Kc: 8
+S: 3
+R: 3
+PE_Num_H: 8
+PE_Num_W: 8
+io_sparsity: 0.68
+w_sparsity: 0.64

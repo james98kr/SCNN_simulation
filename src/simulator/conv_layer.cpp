@@ -54,7 +54,8 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
 
     cout << "Performing sparse convolution on layer " << layer_num << "..." << endl;
     for (int tile_num=0; tile_num<(PE_Num_W * PE_Num_H); tile_num++) {
-        // cout << "tile_num: " << tile_num << endl; 
+        cout << "\rtile_num: " << tile_num + 1 << "/" << PE_Num_W * PE_Num_H;
+        cout.flush(); 
         ioram->get_ram0()->reset_all();
         wfifo->reset_all();
         multarray->reset_io_cnt();
@@ -127,13 +128,9 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
                         loop_start = true;
                     }
                     if (wfifo->get_c_idx() == C) {
-                        // wfifo->reset_i_idx();
                         wfifo->reset_c_idx();
                         wfifo->incr_k_idx();
-                        // ioram->get_ram0()->reset_i_idx();
                         ioram->get_ram0()->reset_c_idx();
-                        // multarray->reset_w_cnt();
-                        // multarray->reset_io_cnt();
                         accumbanks_flush = true;
                         loop_start = true;
                     }
@@ -171,7 +168,7 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
         }
     }
 
-    cout << "- Total number of cycles: " << cycle << "\n" << endl;
+    cout << "\n- Total number of cycles: " << cycle << "\n" << endl;
 
     return final;
 }
