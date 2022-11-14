@@ -44,6 +44,7 @@ void ConfigArch::print() {
     cout << "Crossbar port_out: " << xbar_out << endl;
     cout << "Accumulator bank number: " << acc_bank_num << endl;
     cout << "########################################################################" << endl;
+    cout << "" << endl;
 }
 
 int ConfigArch::get_mult_arr_F() { return mult_arr_F; }

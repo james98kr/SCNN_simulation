@@ -1,4 +1,4 @@
-Num_Layers: 1
+Num_Layers: 2
 
 I: 4
 F: 4
@@ -14,5 +14,18 @@ S: 3
 R: 3
 PE_Num_H: 8
 PE_Num_W: 8
+io_sparsity: 0.3
+w_sparsity: 0.59
+
+N: 1
+C: 4
+Orig_H: 154
+Orig_W: 154
+K: 4
+Kc: 2
+S: 5
+R: 5
+PE_Num_H: 7
+PE_Num_W: 7
 io_sparsity: 0.3
 w_sparsity: 0.59

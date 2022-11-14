@@ -36,7 +36,7 @@ ConfigDataflow::ConfigDataflow(
 }
 
 void ConfigDataflow::print(int layer_num) {
-    cout << "" << endl;
+    cout << "------------------------------------------------------------------------" << endl;
     cout << "Configurations for layer " << layer_num << endl;
     cout << "- Input activation shape (N, C, H, W): (" << N << ", " << C << ", " << Orig_H << ", " << Orig_W << ")" << endl;
     cout << "- Weight shape (K, C, S, R): (" << K << ", " << C << ", " << S << ", " << R << ")" << endl;
@@ -44,6 +44,7 @@ void ConfigDataflow::print(int layer_num) {
     cout << "- Kc: " << Kc << endl;
     cout << "- Input activation sparsity: " << io_sparsity << endl;
     cout << "- Weight sparsity: " << w_sparsity << endl;
+    cout << "" << endl;
 }
 
 // Get

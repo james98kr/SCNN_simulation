@@ -53,6 +53,7 @@ int main(int argc, char** argv) {
         goldenconvmodel.golden_convolution();
         goldenconvmodel.validation(&final, layer);
     }
+    cout << "------------------------------------------------------------------------" << endl;
 
     return 0;
 }
