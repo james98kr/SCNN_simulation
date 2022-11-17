@@ -25,7 +25,7 @@ public:
 
         // Accumulator bank
         int _acc_bank_num=0,
-        int _max_num_elem_per_bank=0
+        int _max_queue_depth=0
     );
 
     void print();
@@ -43,7 +43,7 @@ public:
     int get_weight_idx_len();
 
     int get_acc_bank_num();
-    int get_max_num_elem_per_bank();
+    int get_max_queue_depth();
 
     // Set
     void set_mult_arr_F(int _mult_arr_F);
@@ -58,7 +58,7 @@ public:
     void set_weight_idx_len(int _weight_idx_len);
 
     void set_acc_bank_num(int _acc_bank_num);
-    void set_max_num_elem_per_bank(int _max_num_elem_per_bank);
+    void set_max_queue_depth(int _max_queue_depth);
 
 private:
     // multiplier array F, I size
@@ -77,7 +77,7 @@ private:
 
     // Accumulator bank
     int acc_bank_num;
-    int max_num_elem_per_bank;
+    int max_queue_depth;
 };
 
 }

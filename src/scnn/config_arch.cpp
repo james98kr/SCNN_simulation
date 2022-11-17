@@ -19,7 +19,7 @@ ConfigArch::ConfigArch(
 
     // Accumulator bank
     int _acc_bank_num,
-    int _max_num_elem_per_bank
+    int _max_queue_depth
 ) {
     mult_arr_F = _mult_arr_F;
     mult_arr_I = _mult_arr_I;
@@ -33,7 +33,7 @@ ConfigArch::ConfigArch(
     weight_idx_len = _weight_idx_len;
 
     acc_bank_num = _acc_bank_num;
-    max_num_elem_per_bank = _max_num_elem_per_bank;
+    max_queue_depth = _max_queue_depth;
 }
 
 void ConfigArch::print() {
@@ -56,7 +56,7 @@ int ConfigArch::get_ioram_idx_len() { return ioram_idx_len; }
 int ConfigArch::get_weight_sparse_len() { return weight_sparse_len; }
 int ConfigArch::get_weight_idx_len() { return weight_idx_len; }
 int ConfigArch::get_acc_bank_num() { return acc_bank_num; }
-int ConfigArch::get_max_num_elem_per_bank() { return max_num_elem_per_bank; }
+int ConfigArch::get_max_queue_depth() { return max_queue_depth; }
 
 void ConfigArch::set_mult_arr_F(int _mult_arr_F) { mult_arr_F = _mult_arr_F; }
 void ConfigArch::set_mult_arr_I(int _mult_arr_I) { mult_arr_I = _mult_arr_I; }
@@ -67,6 +67,6 @@ void ConfigArch::set_ioram_idx_len(int _ioram_idx_len) { ioram_idx_len = _ioram_
 void ConfigArch::set_weight_sparse_len(int _weight_sparse_len) { weight_sparse_len = _weight_sparse_len; }
 void ConfigArch::set_weight_idx_len(int _weight_idx_len) { weight_idx_len = _weight_idx_len; }
 void ConfigArch::set_acc_bank_num(int _acc_bank_num) { acc_bank_num = _acc_bank_num; }
-void ConfigArch::set_max_num_elem_per_bank(int _max_num_elem_per_bank) { max_num_elem_per_bank = _max_num_elem_per_bank; }
+void ConfigArch::set_max_queue_depth(int _max_queue_depth) { max_queue_depth = _max_queue_depth; }
 
 } // Namespace SCNN

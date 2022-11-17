@@ -44,7 +44,7 @@ ConfigArch ConfigParser::parse_cfg_arch() {
     cfg_arch.set_ioram_idx_len(defval);
     cfg_arch.set_weight_sparse_len(defval);
     cfg_arch.set_weight_idx_len(defval);
-    cfg_arch.set_max_num_elem_per_bank(defval);
+    cfg_arch.set_max_queue_depth(defval);
 
     cfg_file.close();
 

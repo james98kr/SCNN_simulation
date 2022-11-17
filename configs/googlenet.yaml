@@ -2,7 +2,7 @@ Num_Layers: 12
 
 I: 4
 F: 4
-defval: 1000
+defval: 100
 
 N: 1  # inception_3a_pool_proj
 C: 32

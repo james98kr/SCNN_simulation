@@ -21,18 +21,16 @@ public:
 
     // get
     int get_num_banks();
-    int get_num_elem_per_bank();
-    bool get_finished();
+    int get_max_queue_depth();
+    int get_queue_max_len();
 
 private:
     SCNN::ConfigArch* cfg_arch;
 
     int num_banks;
-    int num_elem_per_bank;
-    int ptr;
-    bool finished;
+    int max_queue_depth;
 
-    vector<IO_vec> xbar_input;
+    vector<IO_vec> queue;
     vector<IO_vec> banks;
 };
     

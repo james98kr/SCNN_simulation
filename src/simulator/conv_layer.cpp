@@ -35,8 +35,12 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
     int PE_Num_H = cfg_layer->get_PE_Num_H();
     float io_sparsity = cfg_layer->get_io_sparsity();
     float w_sparsity = cfg_layer->get_w_sparsity();
+    int F = wfifo->get_cfg_arch()->get_mult_arr_F();
+    int I = wfifo->get_cfg_arch()->get_mult_arr_I();
 
     int cycle = 0;
+    int mult_cycle = 0;
+    float mult_util = 0.0;
     bool loop_terminate = false;
     bool loop_start = true;
     bool accumbanks_flush = false;
@@ -76,19 +80,29 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
         for (int n=0; n<N; n++) {
             while (true) {
                 // Accumulator Buffer Bank: Perform accumulation / flush
-                while (!accumbanks->get_finished())
-                    accumbanks->accumulate_one_cycle();
+                accumbanks->accumulate_one_cycle();
                 if (accumbanks_flush) {
                     accumbanks_flush = false;
                     accumbanks->flush_to_output(&final);
                 }
 
                 // CrossBar: Distribute output to corresponding accumulator buffer banks 
+                // If queue is full, stall until queue is cleared
                 crossbar_out = crossbar->distribute_input_to_output();
                 accumbanks->receive_accum_inputs(crossbar_out);
+                if (accumbanks->get_max_queue_depth() < accumbanks->get_queue_max_len()) {
+                    while (accumbanks->get_queue_max_len() > 0) {
+                        accumbanks->accumulate_one_cycle();
+                        cycle++;
+                    }
+                }
 
                 // Multiplier Array: Perform F x I parallel cartesian product calculation
                 multarray_out = multarray->cartesian_product(tile_num, ioram->get_ram0()->get_n_idx(), ioram->get_ram0()->get_c_idx(), wfifo->get_k_idx());
+                if (multarray_out.size() > 0) {
+                    mult_util += multarray_out.size();
+                    mult_cycle++;
+                }
                 crossbar->receive_port_in(multarray_out);
 
                 // IORAM, WFIFO: Fetch input activations and weight
@@ -163,12 +177,22 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
                     }
                 }
             }
+
+            // Complete convolution layer by clearing the queue
+            while (accumbanks->get_queue_max_len() > 0) {
+                accumbanks->accumulate_one_cycle();
+                cycle++;
+            }
+
             ioram->get_ram0()->incr_n_idx();
             wfifo->reset_k_idx();
         }
     }
 
-    cout << "\n- Total number of cycles: " << cycle << "\n" << endl;
+    cout << "\n- Total number of cycles: " << cycle << endl;
+    cout << "- Multiplier utilization: " << (mult_util / (mult_cycle * F * I)) << endl;
+    cout << "   - Total mult_array output size: " << mult_util << endl;
+    cout << "   - Mult_cycle: " << mult_cycle << "\n" <<endl;
 
     return final;
 }

@@ -12,7 +12,7 @@ The format of the ``yaml`` files is as follows. You must strictly follow this fo
 2\) Section 2 (Line 3 ~ 5)
 * ``I``: the amount of input activation elements that will be processed by the multiplier array per cycle
 * ``F``: the amount of filter weight elements that will be processed by the multiplier array per cycle
-* ``defval``: a dummy value, which will be used to fill information such as size of accumulator bank, etc.
+* ``defval``: used as the maximum depth of the queue used in the accumulator banks
 
 3\) Section 3 (Conv Layer Specifications)
 * ``N``: batch size of input tensor (default: 1)

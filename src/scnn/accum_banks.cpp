@@ -5,27 +5,25 @@ namespace SCNN {
 AccumulatorBanks::AccumulatorBanks(ConfigArch* _cfg_arch) {
     cfg_arch = _cfg_arch;
     num_banks = _cfg_arch->get_acc_bank_num();
-    num_elem_per_bank = _cfg_arch->get_max_num_elem_per_bank();
+    max_queue_depth = _cfg_arch->get_max_queue_depth();
 
     for (int i=0; i<num_banks; i++) {
         IO_vec empty;
-        xbar_input.push_back(empty);
+        queue.push_back(empty);
         banks.push_back(empty);
     }
-
-    ptr = 0;
-    finished = false;
 }
 
 void AccumulatorBanks::clean() {
     for (int i=0; i<banks.size(); i++)
         banks[i].clear();
-    ptr = 0;
-    finished = false;
 }
 
 void AccumulatorBanks::receive_accum_inputs(vector<IO_vec> accum_input) {
-    xbar_input = accum_input;
+    for (int i=0; i<queue.size(); i++) {
+        if (accum_input[i].size() > 0)
+            queue[i].insert(queue[i].end(), accum_input[i].begin(), accum_input[i].end());
+    }
 }
 
 void AccumulatorBanks::insert_one_element_to_bank(IO_element elem, int bank_idx) {
@@ -62,14 +60,12 @@ void AccumulatorBanks::insert_one_element_to_bank(IO_element elem, int bank_idx)
 }
 
 void AccumulatorBanks::accumulate_one_cycle() {
-    finished = true;
     for (int i=0; i<num_banks; i++) {
-        if (ptr < xbar_input[i].size()) {
-            finished = false;
-            insert_one_element_to_bank(xbar_input[i][ptr], i);
+        if (queue[i].size() > 0) {
+            insert_one_element_to_bank(queue[i][0], i);
+            queue[i].erase(queue[i].begin());
         }
     }
-    ptr++;
 }
 
 void AccumulatorBanks::flush_to_output(Tensor4D_IO* output_tensor) {
@@ -82,14 +78,15 @@ void AccumulatorBanks::flush_to_output(Tensor4D_IO* output_tensor) {
 }
 
 int AccumulatorBanks::get_num_banks() { return num_banks; }
-int AccumulatorBanks::get_num_elem_per_bank() { return num_elem_per_bank; }
-bool AccumulatorBanks::get_finished() { 
-    if (finished) {
-        ptr = 0;
-        finished = false;
-        return !finished;
+int AccumulatorBanks::get_max_queue_depth() { return max_queue_depth; }
+
+int AccumulatorBanks::get_queue_max_len() {
+    int maxlen = 0;
+    for (int i=0; i<queue.size(); i++) {
+        if (queue[i].size() > maxlen)
+            maxlen = queue[i].size();
     }
-    return finished;
+    return maxlen;
 }
 
 }
