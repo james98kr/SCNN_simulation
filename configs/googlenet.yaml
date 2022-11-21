@@ -5,11 +5,11 @@ F: 4
 defval: 100
 
 N: 1  # inception_3a_pool_proj
-C: 32
+C: 192
 Orig_H: 28
 Orig_W: 28
 K: 32
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -22,7 +22,7 @@ C: 192
 Orig_H: 28
 Orig_W: 28
 K: 64
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -35,7 +35,7 @@ C: 192
 Orig_H: 28
 Orig_W: 28
 K: 96
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -48,7 +48,7 @@ C: 96
 Orig_H: 28
 Orig_W: 28
 K: 128
-Kc: 8
+Kc: 16
 S: 3
 R: 3
 PE_Num_H: 8
@@ -61,7 +61,7 @@ C: 192
 Orig_H: 28
 Orig_W: 28
 K: 16
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -74,7 +74,7 @@ C: 16
 Orig_H: 28
 Orig_W: 28
 K: 32
-Kc: 8
+Kc: 16
 S: 5
 R: 5
 PE_Num_H: 8
@@ -82,12 +82,12 @@ PE_Num_W: 8
 io_sparsity: 0.23
 w_sparsity: 0.65
 
-N: 1  # inception_5a_pool_proj
-C: 128
+N: 1  # inception_5b_pool_proj
+C: 832
 Orig_H: 7
 Orig_W: 7
 K: 128
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -95,12 +95,12 @@ PE_Num_W: 8
 io_sparsity: 0.43
 w_sparsity: 0.68
 
-N: 1  # inception_5a_1x1
-C: 1024
+N: 1  # inception_5b_1x1
+C: 832
 Orig_H: 7
 Orig_W: 7
 K: 384
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -108,12 +108,12 @@ PE_Num_W: 8
 io_sparsity: 0.69
 w_sparsity: 0.68
 
-N: 1  # inception_5a_3x3_reduce
-C: 1024
+N: 1  # inception_5b_3x3_reduce
+C: 832
 Orig_H: 7
 Orig_W: 7
 K: 192
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -121,12 +121,12 @@ PE_Num_W: 8
 io_sparsity: 0.69
 w_sparsity: 0.67
 
-N: 1  # inception_5a_3x3
+N: 1  # inception_5b_3x3
 C: 192
 Orig_H: 7
 Orig_W: 7
 K: 384
-Kc: 8
+Kc: 16
 S: 3
 R: 3
 PE_Num_H: 8
@@ -134,12 +134,12 @@ PE_Num_W: 8
 io_sparsity: 0.7
 w_sparsity: 0.63
 
-N: 1  # inception_5a_5x5_reduce
-C: 1024
+N: 1  # inception_5b_5x5_reduce
+C: 832
 Orig_H: 7
 Orig_W: 7
 K: 48
-Kc: 8
+Kc: 16
 S: 1
 R: 1
 PE_Num_H: 8
@@ -147,12 +147,12 @@ PE_Num_W: 8
 io_sparsity: 0.69
 w_sparsity: 0.67
 
-N: 1  # inception_5a_5x5
+N: 1  # inception_5b_5x5
 C: 48
 Orig_H: 7
 Orig_W: 7
 K: 128
-Kc: 8
+Kc: 16
 S: 5
 R: 5
 PE_Num_H: 8

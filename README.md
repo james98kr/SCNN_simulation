@@ -66,16 +66,19 @@ Accumulator bank number: 32
 
 ```
 Configurations for layer 0
-- Input activation shape (N, C, H, W): (1, 3, 224, 224)
-- Weight shape (K, C, S, R): (64, 3, 3, 3)
+- Input activation shape (N, C, H, W): (1, 192, 28, 28)
+- Weight shape (K, C, S, R): (32, 192, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
 - Kc: 8
-- Input activation sparsity: 0
-- Weight sparsity: 0.43
+- Input activation sparsity: 0.04
+- Weight sparsity: 0.57
 
 Performing sparse convolution on layer 0...
 tile_num: 64/64
-- Total number of cycles: 3187904
+- Total number of cycles: 240224
+- Multiplier utilization: 0.652853
+   - Total mult_array output size: 1.98809e+06
+   - Mult_cycle: 190327
 
 Performing golden convolution...
 Performing validation for layer 0...

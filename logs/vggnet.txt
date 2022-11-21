@@ -17,7 +17,10 @@ Configurations for layer 0
 
 Performing sparse convolution on layer 0...
 tile_num: 64/64
-- Total number of cycles: 3187904
+- Total number of cycles: 3225536
+- Multiplier utilization: 0.958171
+   - Total mult_array output size: 4.94234e+07
+   - Mult_cycle: 3223808
 
 Performing golden convolution...
 Performing validation for layer 0...
@@ -33,7 +36,10 @@ Configurations for layer 1
 
 Performing sparse convolution on layer 1...
 tile_num: 64/64
-- Total number of cycles: 13430551
+- Total number of cycles: 13400251
+- Multiplier utilization: 0.907201
+   - Total mult_array output size: 1.94029e+08
+   - Mult_cycle: 13367291
 
 Performing golden convolution...
 Performing validation for layer 1...
@@ -49,7 +55,10 @@ Configurations for layer 2
 
 Performing sparse convolution on layer 2...
 tile_num: 64/64
-- Total number of cycles: 18260850
+- Total number of cycles: 18264223
+- Multiplier utilization: 0.921902
+   - Total mult_array output size: 2.68435e+08
+   - Mult_cycle: 18198484
 
 Performing golden convolution...
 Performing validation for layer 2...
@@ -65,7 +74,10 @@ Configurations for layer 3
 
 Performing sparse convolution on layer 3...
 tile_num: 64/64
-- Total number of cycles: 34358838
+- Total number of cycles: 34339870
+- Multiplier utilization: 0.490438
+   - Total mult_array output size: 2.68435e+08
+   - Mult_cycle: 34208606
 
 Performing golden convolution...
 Performing validation for layer 3...
@@ -81,7 +93,10 @@ Configurations for layer 4
 
 Performing sparse convolution on layer 4...
 tile_num: 64/64
-- Total number of cycles: 27012077
+- Total number of cycles: 27012950
+- Multiplier utilization: 0.627171
+   - Total mult_array output size: 2.68435e+08
+   - Mult_cycle: 26750614
 
 Performing golden convolution...
 Performing validation for layer 4...
@@ -97,7 +112,10 @@ Configurations for layer 5
 
 Performing sparse convolution on layer 5...
 tile_num: 64/64
-- Total number of cycles: 18903575
+- Total number of cycles: 18898473
+- Multiplier utilization: 0.866464
+   - Total mult_array output size: 2.54726e+08
+   - Mult_cycle: 18373995
 
 Performing golden convolution...
 Performing validation for layer 5...
@@ -113,7 +131,10 @@ Configurations for layer 6
 
 Performing sparse convolution on layer 6...
 tile_num: 64/64
-- Total number of cycles: 36423711
+- Total number of cycles: 36436881
+- Multiplier utilization: 0.467171
+   - Total mult_array output size: 2.68435e+08
+   - Mult_cycle: 35912400
 
 Performing golden convolution...
 Performing validation for layer 6...
@@ -129,7 +150,10 @@ Configurations for layer 7
 
 Performing sparse convolution on layer 7...
 tile_num: 64/64
-- Total number of cycles: 17462812
+- Total number of cycles: 17449317
+- Multiplier utilization: 0.781555
+   - Total mult_array output size: 2.05087e+08
+   - Mult_cycle: 16400551
 
 Performing golden convolution...
 Performing validation for layer 7...
@@ -145,7 +169,10 @@ Configurations for layer 8
 
 Performing sparse convolution on layer 8...
 tile_num: 64/64
-- Total number of cycles: 22324445
+- Total number of cycles: 22324700
+- Multiplier utilization: 0.712907
+   - Total mult_array output size: 2.30724e+08
+   - Mult_cycle: 20227352
 
 Performing golden convolution...
 Performing validation for layer 8...
@@ -161,7 +188,10 @@ Configurations for layer 9
 
 Performing sparse convolution on layer 9...
 tile_num: 64/64
-- Total number of cycles: 25986967
+- Total number of cycles: 25994296
+- Multiplier utilization: 0.70172
+   - Total mult_array output size: 2.68304e+08
+   - Mult_cycle: 23896953
 
 Performing golden convolution...
 Performing validation for layer 9...
@@ -177,7 +207,10 @@ Configurations for layer 10
 
 Performing sparse convolution on layer 10...
 tile_num: 64/64
-- Total number of cycles: 12509877
+- Total number of cycles: 12552491
+- Multiplier utilization: 0.377317
+   - Total mult_array output size: 6.31187e+07
+   - Mult_cycle: 10455172
 
 Performing golden convolution...
 Performing validation for layer 10...
@@ -193,7 +226,10 @@ Configurations for layer 11
 
 Performing sparse convolution on layer 11...
 tile_num: 64/64
-- Total number of cycles: 10027241
+- Total number of cycles: 10008084
+- Multiplier utilization: 0.349649
+   - Total mult_array output size: 4.42559e+07
+   - Mult_cycle: 7910775
 
 Performing golden convolution...
 Performing validation for layer 11...
@@ -209,7 +245,10 @@ Configurations for layer 12
 
 Performing sparse convolution on layer 12...
 tile_num: 64/64
-- Total number of cycles: 11653522
+- Total number of cycles: 11639211
+- Multiplier utilization: 0.348954
+   - Total mult_array output size: 5.32749e+07
+   - Mult_cycle: 9541890
 
 Performing golden convolution...
 Performing validation for layer 12...

@@ -11,16 +11,16 @@ Configurations for layer 0
 - Input activation shape (N, C, H, W): (1, 192, 28, 28)
 - Weight shape (K, C, S, R): (32, 192, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.04
 - Weight sparsity: 0.57
 
 Performing sparse convolution on layer 0...
 tile_num: 64/64
-- Total number of cycles: 240224
-- Multiplier utilization: 0.652853
-   - Total mult_array output size: 1.98809e+06
-   - Mult_cycle: 190327
+- Total number of cycles: 188966
+- Multiplier utilization: 0.756966
+   - Total mult_array output size: 1.98868e+06
+   - Mult_cycle: 164198
 
 Performing golden convolution...
 Performing validation for layer 0...
@@ -30,16 +30,16 @@ Configurations for layer 1
 - Input activation shape (N, C, H, W): (1, 192, 28, 28)
 - Weight shape (K, C, S, R): (64, 192, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.29
 - Weight sparsity: 0.62
 
 Performing sparse convolution on layer 1...
 tile_num: 64/64
-- Total number of cycles: 383528
-- Multiplier utilization: 0.576945
-   - Total mult_array output size: 2.60023e+06
-   - Mult_cycle: 281681
+- Total number of cycles: 286431
+- Multiplier utilization: 0.685427
+   - Total mult_array output size: 2.60009e+06
+   - Mult_cycle: 237087
 
 Performing golden convolution...
 Performing validation for layer 1...
@@ -49,16 +49,16 @@ Configurations for layer 2
 - Input activation shape (N, C, H, W): (1, 192, 28, 28)
 - Weight shape (K, C, S, R): (96, 192, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.29
 - Weight sparsity: 0.58
 
 Performing sparse convolution on layer 2...
 tile_num: 64/64
-- Total number of cycles: 598504
-- Multiplier utilization: 0.601461
-   - Total mult_array output size: 4.30992e+06
-   - Mult_cycle: 447859
+- Total number of cycles: 462658
+- Multiplier utilization: 0.693041
+   - Total mult_array output size: 4.31056e+06
+   - Mult_cycle: 388736
 
 Performing golden convolution...
 Performing validation for layer 2...
@@ -68,16 +68,16 @@ Configurations for layer 3
 - Input activation shape (N, C, H, W): (1, 96, 28, 28)
 - Weight shape (K, C, S, R): (128, 96, 3, 3)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.33
 - Weight sparsity: 0.55
 
 Performing sparse convolution on layer 3...
 tile_num: 64/64
-- Total number of cycles: 2121994
-- Multiplier utilization: 0.807389
-   - Total mult_array output size: 2.614e+07
-   - Mult_cycle: 2023497
+- Total number of cycles: 2024490
+- Multiplier utilization: 0.827262
+   - Total mult_array output size: 2.61433e+07
+   - Mult_cycle: 1975140
 
 Performing golden convolution...
 Performing validation for layer 3...
@@ -87,16 +87,16 @@ Configurations for layer 4
 - Input activation shape (N, C, H, W): (1, 192, 28, 28)
 - Weight shape (K, C, S, R): (16, 192, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.29
 - Weight sparsity: 0.64
 
 Performing sparse convolution on layer 4...
 tile_num: 64/64
-- Total number of cycles: 94605
-- Multiplier utilization: 0.561972
-   - Total mult_array output size: 615346
-   - Mult_cycle: 68436
+- Total number of cycles: 69156
+- Multiplier utilization: 0.678853
+   - Total mult_array output size: 615595
+   - Mult_cycle: 56676
 
 Performing golden convolution...
 Performing validation for layer 4...
@@ -106,16 +106,16 @@ Configurations for layer 5
 - Input activation shape (N, C, H, W): (1, 16, 28, 28)
 - Weight shape (K, C, S, R): (32, 16, 5, 5)
 - Temporal PE config (PE_Num_H, PE_Num_W): (8, 8)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.23
 - Weight sparsity: 0.65
 
 Performing sparse convolution on layer 5...
 tile_num: 64/64
-- Total number of cycles: 204579
-- Multiplier utilization: 0.843964
-   - Total mult_array output size: 2.70449e+06
-   - Mult_cycle: 200282
+- Total number of cycles: 200273
+- Multiplier utilization: 0.853774
+   - Total mult_array output size: 2.70515e+06
+   - Mult_cycle: 198029
 
 Performing golden convolution...
 Performing validation for layer 5...
@@ -125,16 +125,16 @@ Configurations for layer 6
 - Input activation shape (N, C, H, W): (1, 832, 7, 7)
 - Weight shape (K, C, S, R): (128, 832, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.43
 - Weight sparsity: 0.68
 
 Performing sparse convolution on layer 6...
 tile_num: 49/49
-- Total number of cycles: 1033556
-- Multiplier utilization: 0.156027
-   - Total mult_array output size: 951689
-   - Mult_cycle: 381219
+- Total number of cycles: 635007
+- Multiplier utilization: 0.192857
+   - Total mult_array output size: 952711
+   - Mult_cycle: 308749
 
 Performing golden convolution...
 Performing validation for layer 6...
@@ -144,16 +144,16 @@ Configurations for layer 7
 - Input activation shape (N, C, H, W): (1, 832, 7, 7)
 - Weight shape (K, C, S, R): (384, 832, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.69
 - Weight sparsity: 0.68
 
 Performing sparse convolution on layer 7...
 tile_num: 49/49
-- Total number of cycles: 2581115
-- Multiplier utilization: 0.155448
-   - Total mult_array output size: 1.55239e+06
-   - Mult_cycle: 624161
+- Total number of cycles: 1479656
+- Multiplier utilization: 0.193633
+   - Total mult_array output size: 1.55258e+06
+   - Mult_cycle: 501134
 
 Performing golden convolution...
 Performing validation for layer 7...
@@ -163,16 +163,16 @@ Configurations for layer 8
 - Input activation shape (N, C, H, W): (1, 832, 7, 7)
 - Weight shape (K, C, S, R): (192, 832, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.69
 - Weight sparsity: 0.67
 
 Performing sparse convolution on layer 8...
 tile_num: 49/49
-- Total number of cycles: 1295496
-- Multiplier utilization: 0.157964
-   - Total mult_array output size: 801139
-   - Mult_cycle: 316978
+- Total number of cycles: 746722
+- Multiplier utilization: 0.194428
+   - Total mult_array output size: 800786
+   - Mult_cycle: 257417
 
 Performing golden convolution...
 Performing validation for layer 8...
@@ -182,16 +182,16 @@ Configurations for layer 9
 - Input activation shape (N, C, H, W): (1, 192, 7, 7)
 - Weight shape (K, C, S, R): (384, 192, 3, 3)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.7
 - Weight sparsity: 0.63
 
 Performing sparse convolution on layer 9...
 tile_num: 49/49
-- Total number of cycles: 1404693
-- Multiplier utilization: 0.236609
-   - Total mult_array output size: 3.60788e+06
-   - Mult_cycle: 953018
+- Total number of cycles: 1154358
+- Multiplier utilization: 0.243083
+   - Total mult_array output size: 3.61116e+06
+   - Mult_cycle: 928481
 
 Performing golden convolution...
 Performing validation for layer 9...
@@ -201,16 +201,16 @@ Configurations for layer 10
 - Input activation shape (N, C, H, W): (1, 832, 7, 7)
 - Weight shape (K, C, S, R): (48, 832, 1, 1)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.69
 - Weight sparsity: 0.67
 
 Performing sparse convolution on layer 10...
 tile_num: 49/49
-- Total number of cycles: 323553
-- Multiplier utilization: 0.158494
-   - Total mult_array output size: 199974
-   - Mult_cycle: 78857
+- Total number of cycles: 187047
+- Multiplier utilization: 0.193292
+   - Total mult_array output size: 199966
+   - Mult_cycle: 64658
 
 Performing golden convolution...
 Performing validation for layer 10...
@@ -220,16 +220,16 @@ Configurations for layer 11
 - Input activation shape (N, C, H, W): (1, 48, 7, 7)
 - Weight shape (K, C, S, R): (128, 48, 5, 5)
 - Temporal PE config (PE_Num_H, PE_Num_W): (7, 7)
-- Kc: 8
+- Kc: 16
 - Input activation sparsity: 0.54
 - Weight sparsity: 0.64
 
 Performing sparse convolution on layer 11...
 tile_num: 49/49
-- Total number of cycles: 355626
-- Multiplier utilization: 0.245036
-   - Total mult_array output size: 1.24633e+06
-   - Mult_cycle: 317895
+- Total number of cycles: 333875
+- Multiplier utilization: 0.247451
+   - Total mult_array output size: 1.24694e+06
+   - Mult_cycle: 314947
 
 Performing golden convolution...
 Performing validation for layer 11...

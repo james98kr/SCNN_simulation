@@ -9,7 +9,7 @@ C: 3
 Orig_H: 224
 Orig_W: 224
 K: 64
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -22,7 +22,7 @@ C: 64
 Orig_H: 224
 Orig_W: 224
 K: 64
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -35,7 +35,7 @@ C: 64
 Orig_H: 112
 Orig_W: 112
 K: 128
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -48,7 +48,7 @@ C: 128
 Orig_H: 112
 Orig_W: 112
 K: 128
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -61,7 +61,7 @@ C: 128
 Orig_H: 56
 Orig_W: 56
 K: 256
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -74,7 +74,7 @@ C: 256
 Orig_H: 56
 Orig_W: 56
 K: 256
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -87,7 +87,7 @@ C: 256
 Orig_H: 56
 Orig_W: 56
 K: 256
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -100,7 +100,7 @@ C: 256
 Orig_H: 28
 Orig_W: 28
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -113,7 +113,7 @@ C: 512
 Orig_H: 28
 Orig_W: 28
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -126,7 +126,7 @@ C: 512
 Orig_H: 28
 Orig_W: 28
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -139,7 +139,7 @@ C: 512
 Orig_H: 14
 Orig_W: 14
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -152,7 +152,7 @@ C: 512
 Orig_H: 14
 Orig_W: 14
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
@@ -165,7 +165,7 @@ C: 512
 Orig_H: 14
 Orig_W: 14
 K: 512
-Kc: 8
+Kc: 32
 S: 3
 R: 3
 PE_Num_H: 8
