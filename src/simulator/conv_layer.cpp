@@ -40,7 +40,7 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
 
     int cycle = 0;
     int mult_cycle = 0;
-    float mult_util = 0.0;
+    int mult_util = 0;
     bool loop_terminate = false;
     bool loop_start = true;
     bool accumbanks_flush = false;
@@ -190,7 +190,7 @@ Tensor4D_IO ConvLayer::convolution(Tensor4D_IO* io, Tensor4D_W* w, int layer_num
     }
 
     cout << "\n- Total number of cycles: " << cycle << endl;
-    cout << "- Multiplier utilization: " << (mult_util / (mult_cycle * F * I)) << endl;
+    cout << "- Multiplier utilization: " << ((float) mult_util / (mult_cycle * F * I)) << endl;
     cout << "   - Total mult_array output size: " << mult_util << endl;
     cout << "   - Mult_cycle: " << mult_cycle << "\n" <<endl;
 
